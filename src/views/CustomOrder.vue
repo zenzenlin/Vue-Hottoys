@@ -128,6 +128,7 @@
           <label for="useremail">Email</label>
           <input type="email" class="form-control" name="email" id="useremail"
           :class="{'is-invalid' : errors.has('email')}"
+          v-model="form.user.email"
           v-validate="'required|email'"
           placeholder="請輸入 Email">
           <span class="text-danger" v-if="errors.has('email')">{{errors.first('email')}}</span>
@@ -145,13 +146,16 @@
 
         <div class="form-group">
           <label for="usertel">收件人電話</label>
-          <input type="tel" class="form-control" id="usertel" placeholder="請輸入電話">
+          <input type="tel" class="form-control" id="usertel"
+          v-model="form.user.tel"
+          placeholder="請輸入電話">
         </div>
 
         <div class="form-group">
           <label for="useraddress">收件人地址</label>
           <input type="address" class="form-control" name="address" id="useraddress"
           :class="{'is-invalid' : errors.has('address')}"
+          v-model="form.user.address"
           v-validate="'required'"
           placeholder="請輸入地址">
           <span class="text-danger" v-if="errors.has('address')">地址欄位不得留空</span>
@@ -277,6 +281,9 @@ export default {
         if (result) {
           this.$http.post(api, { data: order }).then(response => {
             console.log('createOrder', response)
+            if (response.data.success) {
+              vm.$router.push(`customcheckout/${response.data.orderId}`)
+            }
             vm.isLoading = false
             this.$refs.dataForm.reset()
           })

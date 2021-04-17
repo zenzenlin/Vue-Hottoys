@@ -8,7 +8,7 @@
       <thead>
         <tr>
           <th width="120">購買時間</th>
-          <th width="230">Email</th>
+          <th width="230">訂單ID</th>
           <th>購買品項</th>
           <th width="120">應付金額</th>
           <th width="120">是否付款</th>
@@ -28,7 +28,7 @@
           </td>
           <td>{{ item.total}}</td>
           <td>
-            <b v-if="item.is_paid" class="text-green">已付款</b>
+            <b v-if="item.is_paid" class="text-success">已付款</b>
             <p v-else class="text-gray">尚未付款</p>
           </td>
         </tr>
