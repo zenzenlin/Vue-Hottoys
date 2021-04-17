@@ -123,21 +123,24 @@
     </div>
     <!-- 建立訂單 -->
     <div class="my-5 row justify-content-center">
-      <form class="col-md-6" @submit.prevent="createOrder">
+      <form class="col-md-6" ref="dataForm" @submit.prevent="createOrder">
         <div class="form-group">
           <label for="useremail">Email</label>
           <input type="email" class="form-control" name="email" id="useremail"
-
-            placeholder="請輸入 Email">
-          <!-- <span class="text-danger" v-if="errors.has('email')">{{errors.first('email')}}</span> -->
+          :class="{'is-invalid' : errors.has('email')}"
+          v-validate="'required|email'"
+          placeholder="請輸入 Email">
+          <span class="text-danger" v-if="errors.has('email')">{{errors.first('email')}}</span>
         </div>
 
         <div class="form-group">
           <label for="username">收件人姓名</label>
           <input type="text" class="form-control" name="name" id="username"
+          :class="{'is-invalid' : errors.has('name')}"
           v-model="form.user.name"
-          placeholder="輸入姓名">
-          <!-- <span class="text-danger" v-if="errors.has('name')">姓名必須輸入</span> -->
+          v-validate="'required'"
+          placeholder="請輸入姓名">
+          <span class="text-danger" v-if="errors.has('name')">姓名必須輸入</span>
         </div>
 
         <div class="form-group">
@@ -147,10 +150,11 @@
 
         <div class="form-group">
           <label for="useraddress">收件人地址</label>
-          <input type="address" class="form-control" name="address"
-            id="useraddress"
-            placeholder="請輸入地址">
-          <span class="text-danger">地址欄位不得留空</span>
+          <input type="address" class="form-control" name="address" id="useraddress"
+          :class="{'is-invalid' : errors.has('address')}"
+          v-validate="'required'"
+          placeholder="請輸入地址">
+          <span class="text-danger" v-if="errors.has('address')">地址欄位不得留空</span>
         </div>
 
         <div class="form-group">
@@ -264,22 +268,24 @@ export default {
         vm.getCart()
         vm.isLoading = false
       })
+    },
+    createOrder () {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/order/`
+      const vm = this
+      const order = vm.form
+      this.$validator.validate().then((result) => {
+        if (result) {
+          this.$http.post(api, { data: order }).then(response => {
+            console.log('createOrder', response)
+            vm.isLoading = false
+            this.$refs.dataForm.reset()
+          })
+        } else {
+          console.log('欄位不完整')
+          this.$refs.dataForm.reset()
+        }
+      })
     }
-    // createOrder () {
-    //   const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order/`;
-    //   const vm = this;
-    //   const order = vm.form;
-    //   this.$validator.validate().then((result)=>{
-    //     if(result){
-    //       this.$http.post(api, { data:order }).then(response => {
-    //       console.log('訂單建立',response);
-    //       vm.isLoading = false;
-    //     });
-    //     } else {
-    //       console.log('欄位不完整');
-    //     }
-    //   });
-    // }
   },
   created () {
     this.getProducts()
