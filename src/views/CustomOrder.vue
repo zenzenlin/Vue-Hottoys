@@ -77,10 +77,10 @@
       <div class="col-md-6">
         <table class="table">
           <thead>
-            <th></th>
+            <th width="50"></th>
             <th>品名</th>
-            <th>數量</th>
-            <th>單價</th>
+            <th width="100">數量</th>
+            <th width="100">單價</th>
           </thead>
           <tbody>
             <tr v-for="item in cart.carts" :key="item.id" v-show="showSupplier">
@@ -92,29 +92,29 @@
               </td>
               <td class="align-middle">
                 {{ item.product.title }}
-                <div class="text-success" v-if="item.coupon">
+                <div class="text-success font-italic" v-if="item.coupon">
                   已套用優惠券
                 </div>
               </td>
-              <td class="align-middle">{{ item.qty }}/{{ item.product.unit }}</td>
-              <td class="align-middle text-right">{{ item.final_total }}</td>
+              <td class="align-middle">{{ item.qty }} / {{ item.product.unit }}</td>
+              <td class="align-middle text-right">${{ item.final_total }}</td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3" class="text-right">總計</td>
-              <td class="text-right">{{ cart.total }}</td>
+              <td colspan="3" class="text-right">購物金額總計</td>
+              <td class="text-right">${{ cart.total }}</td>
             </tr>
             <tr v-if="cart.final_total !== cart.total">
-              <td colspan="3" class="text-right text-success">折扣價</td>
-              <td class="text-right text-success">{{ cart.final_total }}</td>
+              <td colspan="3" class="text-right text-success">折扣後應負金額</td>
+              <td class="text-right text-success">${{ cart.final_total }}</td>
             </tr>
           </tfoot>
         </table>
-        <div class="input-group mb-3 input-group-sm">
+        <div class="input-group mb-3 input-group-sm w-50 float-right">
           <input type="text" class="form-control" v-model="coupon_code" placeholder="請輸入優惠碼">
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" >
+            <button class="btn btn-outline-info" type="button" @click="addCouponCode">
               套用優惠碼
             </button>
           </div>
@@ -158,7 +158,7 @@
           <textarea name="" id="" class="form-control" cols="30" rows="10"></textarea>
         </div>
         <div class="text-right">
-          <button class="btn btn-danger">送出訂單</button>
+          <button class="btn btn-danger btn-lg">送出訂單</button>
         </div>
       </form>
     </div>
@@ -211,60 +211,60 @@ export default {
       const vm = this
       vm.status.loadingItem = id
       this.$http.get(api).then(response => {
-        console.log(response.data)
+        console.log('getProduct', response.data)
         vm.product = response.data.product
         $('#productModal').modal('show')
         vm.status.loadingItem = ''
       })
+    },
+    addToCart (id, qty = 1) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      const vm = this
+      vm.status.loadingItem = id
+      const cart = {
+        product_id: id,
+        qty
+      }
+      this.$http.post(api, { data: cart }).then(response => {
+        console.log('addToCart', response.data)
+        vm.status.loadingItem = ''
+        $('#productModal').modal('hide')
+        vm.getCart()
+      })
+    },
+    getCart () {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      const vm = this
+      vm.isLoading = true
+      this.$http.get(api).then((response) => {
+        vm.cart = response.data.data
+        console.log('getCart', response)
+        vm.isLoading = false
+      })
+    },
+    removeCartItem (id) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
+      const vm = this
+      vm.isLoading = true
+      this.$http.delete(api).then((response) => {
+        console.log('delete', response)
+        vm.getCart()
+        vm.isLoading = false
+      })
+    },
+    addCouponCode () {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`
+      const vm = this
+      const coupon = {
+        code: vm.coupon_code
+      }
+      vm.isLoading = true
+      this.$http.post(api, { data: coupon }).then((response) => {
+        console.log('addCoupon', response)
+        vm.getCart()
+        vm.isLoading = false
+      })
     }
-    // addToCart (id, qty=1) {
-    //   const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-    //   const vm = this;
-    //   const cart = {
-    //     product_id: id,
-    //     qty
-    //   }
-    //   vm.status.loadingItem = id;
-    //   this.$http.post(api, { data: cart }).then(response => {
-    //     console.log(response);
-    //     vm.status.loadingItem = '';
-    //     $('#productModal').modal('hide');
-    //     vm.getCart();
-    //   });
-    // },
-    // getCart () {
-    //   const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-    //   const vm = this;
-    //   vm.isLoading = true;
-    //   this.$http.get(api).then((response) => {
-    //     vm.cart = response.data.data;
-    //     console.log(response);
-    //     vm.isLoading = false;
-    //   });
-    // },
-    // removeCartItem (id) {
-    //   const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart/${id}`;
-    //   const vm = this;
-    //   vm.isLoading = true;
-    //   this.$http.delete(api).then((response) => {
-    //     console.log(response);
-    //     vm.getCart();
-    //     vm.isLoading = false;
-    //   });
-    // },
-    // addCouponCode () {
-    //   const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/coupon`;
-    //   const vm = this;
-    //   const coupon = {
-    //     code: vm.coupon_code
-    //   }
-    //   vm.isLoading = true;
-    //   this.$http.post(api, { data:coupon }).then((response) => {
-    //     console.log(response);
-    //     vm.getCart();
-    //     vm.isLoading = false;
-    //   });
-    // },
     // createOrder () {
     //   const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order/`;
     //   const vm = this;
@@ -283,7 +283,7 @@ export default {
   },
   created () {
     this.getProducts()
-    // this.getCart();
+    this.getCart()
   }
 }
 </script>
