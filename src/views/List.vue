@@ -199,7 +199,7 @@
                     </div>
                   </div>
                   <div class="card-footer d-flex">
-                    <button type="button" class="btn btn-outline-secondary btn-sm" @click="getProduct(item.id)">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.push(`/product/${item.id}`)" >
                       <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
                       查看更多
                     </button>

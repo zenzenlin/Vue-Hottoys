@@ -14,13 +14,13 @@
               <router-link class="nav-link" to="/index">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/list">Product</router-link>
+              <router-link class="nav-link" to="/products">Product</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/list">Features</router-link>
+              <router-link class="nav-link" to="/products">Features</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/list">Enterprise</router-link>
+              <router-link class="nav-link" to="/products">Enterprise</router-link>
             </li>
           </ul>
           <div class="mr-3 d-flex">
@@ -47,10 +47,10 @@
                 <h6>已選擇商品</h6>
                 <table class="table table-sm">
                   <tbody>
-                    <tr v-for="item in cart" :key="item.id">
+                    <tr v-for="item in cart.carts" :key="item.id">
                       <td class="align-middle text-center">
-                        <a href="#" class="text-muted" @click.prevent="removeCart(item.id)">
-                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        <a href="#" class="text-danger" @click.prevent="removeCartItem(item.id)">
+                          <i class="far fa-trash-alt" aria-hidden="true"></i>
                         </a>
                       </td>
                       <td class="align-middle">{{ item.product.title }}</td>
@@ -73,13 +73,35 @@
 export default {
   data () {
     return {
-      isShow: false
+      isShow: false,
+      cart: {}
     }
   },
   methods: {
     searchShow () {
       this.isShow = true
+    },
+    getCart () {
+      const vm = this
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      this.$http.get(api).then((response) => {
+        vm.cart = response.data.data
+        console.log('getCart', response)
+      })
+    },
+    removeCartItem (id) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
+      const vm = this
+      vm.isLoading = true
+      this.$http.delete(api).then((response) => {
+        console.log('delete', response)
+        vm.getCart()
+        vm.isLoading = false
+      })
     }
+  },
+  created () {
+    this.getCart()
   }
 }
 </script>

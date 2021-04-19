@@ -1,6 +1,114 @@
 <template>
   <div class="container fluid main">
     <div class="row">
+
+      <div class="col-md-7">
+        <div class="content-watch">
+          <img :src="product.imageUrl" class="img-fluid" alt="產品圖片" />
+          <div class="img-list">
+            <span class="img-hover">
+              <img class="img" />
+            </span>
+            <span class="img-hover">
+              <img class="img" />
+            </span>
+            <span class="img-hover">
+              <img class="img" />
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="parameter">
+          <h1 class="display-4">{{ product.title }}</h1>
+          <hr />
+          <div class="detail py-3">
+            <h5 class="mb-3">{{ product.description }}</h5>
+            <p>{{ product.content }}</p>
+          </div>
+          <hr />
+          <div class="price">
+            <span>{{ product.origin_price }}</span>
+            <div class="text-right mr-3">
+              <span class="h4 mr-2">$</span>
+              <h2 class="d-inline">{{ product.price }}</h2>
+            </div>
+          </div>
+          <div class="mt-3 px-3">
+            <div class="row">
+              <button class="btn btn-lg btn-danger w-100" @click="addToCart(product.id, product.num)">ADD TO CART</button>
+            </div>
+          </div>
+          <div class="py-3 mt-3 summary-area">
+            <div id="summaryDiv">
+              <div class="d-flex">
+                <span class="summary-title mr-auto">The features</span>
+                <div
+                  class="summary-arrow" :class="{'summary-arrowTurn': active}" @click="clickHandler(2)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-chevron-down"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </div>
+              </div>
+              <div class="pt-3 summary-contentTurn" data-one=2>
+                <p>
+                  <small>
+                    - Authentic and detailed fully realized likeness of Batman/ Bruce Wayne in The Dark Knight Rises
+                    <br />- One (1) newly developed Batman helmeted head sculpt with separate rolling eyeballs features and four (4) interchangeable lower part of faces capturing his classic facial expressions
+                    <br />- One (1) newly developed Batman helmeted head sculpt with LED light up function on eyes and interchangeable faces techniques design (battery operated)
+                    <br />- One (1) newly developed head sculpt of Christian Bale as Bruce Wayne in the movie with accurate facial expression, detailed hair, wrinkles and skin texture
+                    <br />- Approximately 32 cm tall
+                  </small>
+                </p>
+              </div>
+            </div>
+            <div>
+              <div class="d-flex">
+                <span class="summary-title mr-auto">The features</span>
+                <div
+                  class="summary-arrow" :class="{'summary-arrowTurn': active}" @click="clickHandler(1)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-chevron-down">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </div>
+              </div>
+              <div class="pt-3 summary-contentTurn" data-one=1>
+                <p>
+                  <small>
+                    - Authentic and detailed fully realized likeness of Batman/ Bruce Wayne in The Dark Knight Rises
+                    <br />- One (1) newly developed Batman helmeted head sculpt with separate rolling eyeballs features and four (4) interchangeable lower part of faces capturing his classic facial expressions
+                    <br />- One (1) newly developed Batman helmeted head sculpt with LED light up function on eyes and interchangeable faces techniques design (battery operated)
+                    <br />- One (1) newly developed head sculpt of Christian Bale as Bruce Wayne in the movie with accurate facial expression, detailed hair, wrinkles and skin texture
+                    <br />- Approximately 32 cm tall
+                  </small>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="col-md-7">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
@@ -132,7 +240,10 @@ export default {
   data () {
     return {
       isShow: true,
-      active: true
+      active: true,
+      product: {},
+      isLoading: false,
+      cart: {}
     }
   },
   methods: {
@@ -148,7 +259,43 @@ export default {
           item.classList.remove('summary-content')
         }
       })
+    },
+    getProduct (productId) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${productId}`
+      const vm = this
+      vm.isLoading = true
+      // vm.status.loadingItem = id
+      this.$http.get(api).then(response => {
+        console.log('getProduct', response.data)
+        vm.product = response.data.product
+        // $('#productModal').modal('show')
+        vm.isLoading = false
+      })
+    },
+    addToCart (id, qty = 1) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      const vm = this
+      const cart = {
+        product_id: id,
+        qty
+      }
+      this.$http.post(api, { data: cart }).then(response => {
+        console.log('addToCart', response.data)
+        vm.getCart()
+      })
+    },
+    getCart () {
+      const vm = this
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      this.$http.get(api).then((response) => {
+        vm.cart = response.data.data
+        console.log('getCart', response)
+      })
     }
+  },
+  created () {
+    // this.productId = this.$route.params.productId
+    this.getProduct(this.$route.params.productId)
   }
 }
 </script>
