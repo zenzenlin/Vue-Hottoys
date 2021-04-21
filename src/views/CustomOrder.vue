@@ -8,7 +8,7 @@
             :style="{backgroundImage: `url(${item.imageUrl})`}">
           </div>
           <div class="card-body">
-            <span class="badge badge-secondary float-right ml-2">{{ item.category }}</span>
+            <span class="badge badge-info float-right ml-2">{{ item.category }}</span>
             <h5 class="card-title">
               <a href="#" class="text-dark">{{ item.title }}</a>
             </h5>
@@ -16,7 +16,7 @@
             <div class="d-flex justify-content-between align-items-baseline">
               <div class="h5" v-if="!item.price">{{ item.origin_price }} 元</div>
               <del class="h6" v-if="item.price">原價 {{ item.origin_price }} 元</del>
-              <div class="h5" v-if="item.price">現在只要 {{ item.price }} 元</div>
+              <div class="h5" v-if="item.price">現在只要 <span class="text-danger">{{ item.price }}</span> 元</div>
             </div>
           </div>
           <div class="card-footer d-flex">

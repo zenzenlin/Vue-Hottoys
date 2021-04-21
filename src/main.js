@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Loading from 'vue-loading-overlay'
@@ -10,11 +11,13 @@ import zhTWValidate from 'vee-validate/dist/locale/zh_TW'
 
 import App from './App.vue'
 import router from './router'
+import store from './store'
 import './bus'
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
 Vue.use(Loading)
+Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper/* { default global options } */)
 Vue.use(VeeValidate)
 VeeValidate.Validator.localize('zh_TW', zhTWValidate)
@@ -24,6 +27,7 @@ Vue.component('Loading', Loading)
 
 new Vue({
   router,
+  store,
   components: { App },
   render: h => h(App)
 }).$mount('#app')

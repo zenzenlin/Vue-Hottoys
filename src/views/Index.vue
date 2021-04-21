@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <Navbar></Navbar>
     <router-view></router-view>
     <Footer></Footer>
@@ -14,6 +15,11 @@ export default {
   components: {
     Navbar,
     Footer
+  },
+  computed: {
+    isLoading () {
+      return this.$store.state.isLoading
+    }
   },
   created () {
     console.log(process.env.VUE_APP_API)

@@ -36,21 +36,25 @@
               </router-link>
             </div>
             <!-- 購物車內的數量 (Button 內包含 icon, 數量 badge) -->
-            <div class="dropdown">
+            <div class="dropdown ml-auto">
               <button class="btn btn-sm btn-cart" data-toggle="dropdown" data-flip="false">
-                <i class="fa fa-shopping-cart text-white fa-2x" aria-hidden="true"></i>
-                <span class="badge badge-pill badge-danger"></span>
+                <i class="fa fa-shopping-cart text-light fa-2x" aria-hidden="true"></i>
+                <span class="badge badge-pill badge-danger position-absolute">{{cart.carts.length}}</span>
                 <span class="sr-only">unread messages</span>
               </button>
-              <div class="dropdown-menu dropdown-menu-right p-3" style="min-width: 300px"
-                data-offset="400">
+              <div
+                class="dropdown-menu dropdown-menu-right p-3"
+                style="min-width: 300px"
+                data-offset="400"
+                v-if="cart.carts.length"
+              >
                 <h6>已選擇商品</h6>
-                <table class="table table-sm">
+                <table class="table table-sm" v-if="cart.carts.length">
                   <tbody>
                     <tr v-for="item in cart.carts" :key="item.id">
                       <td class="align-middle text-center">
                         <a href="#" class="text-danger" @click.prevent="removeCartItem(item.id)">
-                          <i class="far fa-trash-alt" aria-hidden="true"></i>
+                          <i class="far fa-trash-alt"></i>
                         </a>
                       </td>
                       <td class="align-middle">{{ item.product.title }}</td>
@@ -59,8 +63,20 @@
                     </tr>
                   </tbody>
                 </table>
-                <router-link to="/cart"><button class="btn btn-primary btn-block"><i class="fa fa-cart-plus" aria-hidden="true"></i> 結帳去</button></router-link>
+                <div class="d-flex border-top border-bottom mb-3 p-1">
+                  <span class="text-uppercase text-muted">Total</span>
+                  <strong class="ml-auto">{{ cart.total }}</strong>
+                </div>
+                <button class="btn btn-outline-info btn-block">
+                  <i class="fa fa-cart-plus" aria-hidden="true"></i> 結帳去
+                </button>
               </div>
+              <div
+                class="dropdown-menu dropdown-menu-right p-3"
+                style="min-width: 300px"
+                data-offset="400"
+                v-else
+              >目前購物車空無一物</div>
             </div>
           </div>
         </div>
@@ -100,7 +116,7 @@ export default {
       })
     }
   },
-  created () {
+  mounted () {
     this.getCart()
   }
 }

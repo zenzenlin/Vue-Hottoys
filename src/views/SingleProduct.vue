@@ -1,7 +1,6 @@
 <template>
   <div class="container fluid main">
     <div class="row">
-
       <div class="col-md-7">
         <div class="content-watch">
           <img :src="product.imageUrl" class="img-fluid" alt="產品圖片" />
@@ -27,12 +26,17 @@
             <p>{{ product.content }}</p>
           </div>
           <hr />
-          <div class="price">
+          <div class="price d-flex justify-content-between">
             <span>{{ product.origin_price }}</span>
             <div class="text-right mr-3">
               <span class="h4 mr-2">$</span>
               <h2 class="d-inline">{{ product.price }}</h2>
             </div>
+          </div>
+          <div class="">
+            <i class="fas fa-caret-left" data-btn="lower" data-num="product.num" data-id=""></i>
+            <span>{{ product.num }}</span>
+            <i class="fas fa-caret-right" data-btn="add" data-num="product.num" data-id=""></i>
           </div>
           <div class="mt-3 px-3">
             <div class="row">
@@ -109,7 +113,7 @@
         </div>
       </div>
 
-      <div class="col-md-7">
+      <!-- <div class="col-md-7">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -226,7 +230,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -242,7 +246,6 @@ export default {
       isShow: true,
       active: true,
       product: {},
-      isLoading: false,
       cart: {}
     }
   },
@@ -263,18 +266,17 @@ export default {
     getProduct (productId) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${productId}`
       const vm = this
-      vm.isLoading = true
-      // vm.status.loadingItem = id
+      vm.$store.dispatch('updateLoading', true)
       this.$http.get(api).then(response => {
         console.log('getProduct', response.data)
         vm.product = response.data.product
-        // $('#productModal').modal('show')
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
       })
     },
     addToCart (id, qty = 1) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
       const vm = this
+      vm.$store.dispatch('updateLoading', true)
       const cart = {
         product_id: id,
         qty
@@ -282,6 +284,7 @@ export default {
       this.$http.post(api, { data: cart }).then(response => {
         console.log('addToCart', response.data)
         vm.getCart()
+        vm.$store.dispatch('updateLoading', false)
       })
     },
     getCart () {
@@ -296,6 +299,7 @@ export default {
   created () {
     // this.productId = this.$route.params.productId
     this.getProduct(this.$route.params.productId)
+    // this.getCart()
   }
 }
 </script>
