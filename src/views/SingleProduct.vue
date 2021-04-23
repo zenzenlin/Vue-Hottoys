@@ -26,21 +26,22 @@
             <p>{{ product.content }}</p>
           </div>
           <hr />
-          <div class="price d-flex justify-content-between">
-            <span>{{ product.origin_price }}</span>
+          <div class="price d-flex justify-content-between align-items-baseline my-3">
+            <span style=" text-decoration: line-through">$ {{ product.origin_price }}</span>
             <div class="text-right mr-3">
-              <span class="h4 mr-2">$</span>
-              <h2 class="d-inline">{{ product.price }}</h2>
+              <h2 class="d-inline text-danger"><span class="h4 mr-2">$</span>{{ product.price }}</h2>
             </div>
           </div>
-          <div class="">
-            <i class="fas fa-caret-left" data-btn="lower" data-num="product.num" data-id=""></i>
-            <span>{{ product.num }}</span>
-            <i class="fas fa-caret-right" data-btn="add" data-num="product.num" data-id=""></i>
+          <div class="pt-2">
+            <select name="qty" id="qty" class="form-control" v-model="qty">
+              <option v-for="num in 5" :value="num" :key="num">
+                {{ num }}
+              </option>
+            </select>
           </div>
           <div class="mt-3 px-3">
             <div class="row">
-              <button class="btn btn-lg btn-danger w-100" @click="addToCart(product.id, product.num)">ADD TO CART</button>
+              <button class="btn btn-lg btn-danger w-100" @click="addToCart(product.id, qty)">ADD TO CART</button>
             </div>
           </div>
           <div class="py-3 mt-3 summary-area">
@@ -245,8 +246,7 @@ export default {
     return {
       isShow: true,
       active: true,
-      product: {},
-      cart: {}
+      qty: 1
     }
   },
   methods: {
@@ -264,36 +264,21 @@ export default {
       })
     },
     getProduct (productId) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${productId}`
-      const vm = this
-      vm.$store.dispatch('updateLoading', true)
-      this.$http.get(api).then(response => {
-        console.log('getProduct', response.data)
-        vm.product = response.data.product
-        vm.$store.dispatch('updateLoading', false)
-      })
+      this.$store.dispatch('getProduct', productId)
     },
-    addToCart (id, qty = 1) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      const vm = this
-      vm.$store.dispatch('updateLoading', true)
-      const cart = {
-        product_id: id,
-        qty
-      }
-      this.$http.post(api, { data: cart }).then(response => {
-        console.log('addToCart', response.data)
-        vm.getCart()
-        vm.$store.dispatch('updateLoading', false)
-      })
+    addToCart (id, qty) {
+      this.$store.dispatch('addToCart', { id, qty })
     },
     getCart () {
-      const vm = this
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      this.$http.get(api).then((response) => {
-        vm.cart = response.data.data
-        console.log('getCart', response)
-      })
+      this.$store.dispatch('getCart')
+    }
+  },
+  computed: {
+    product () {
+      return this.$store.state.product
+    },
+    cart () {
+      return this.$store.state.cart
     }
   },
   created () {

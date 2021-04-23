@@ -33,7 +33,7 @@
                       <ul class="category-inner-ul">
                         <li class="category-inner-li">
                           <div class="d-flex">
-                            <a href>
+                            <a href="#" @click.prevent="changeTab('classic')" :class="{'active':prodCategory==='classic'}">
                               <span>經典超值</span>
                             </a>
                           </div>
@@ -63,7 +63,7 @@
                       <ul class="category-inner-ul">
                         <li class="category-inner-li">
                           <div class="d-flex">
-                            <a href>
+                            <a href="#" @click.prevent="changeTab('newin')" :class="{'active':prodCategory==='newin'}">
                               <span>注目新品</span>
                             </a>
                           </div>
@@ -93,7 +93,7 @@
                       <ul class="category-inner-ul">
                         <li class="category-inner-li">
                           <div class="d-flex">
-                            <a href>
+                            <a href="#" @click.prevent="changeTab('ironman')" :class="{'active':prodCategory==='ironman'}">
                               <span>IRON MAN</span>
                             </a>
                           </div>
@@ -123,7 +123,7 @@
                       <ul class="category-inner-ul">
                         <li class="">
                           <div class="d-flex">
-                            <a href>
+                            <a href="#" @click.prevent="changeTab('wonderwoman')" :class="{'active':prodCategory==='wonderwoman'}">
                               <span>WONDER WOMAN</span>
                             </a>
                           </div>
@@ -168,44 +168,46 @@
                       <span class="">綜合排序</span>
                     </span>
                     <a href="" class="">
-                      <span class="">最相關</span>
+                      <span class="">價格低到高</span>
                     </a>
                     <a href="" class="">
-                      <span class="">最新上架</span>
+                      <span class="">價格高到低</span>
                     </a>
                   </div>
                 </div>
-                <a href="" class="sortbar-btn">價格低到高</a>
-                <a href="" class="sortbar-btn">價格高到低</a>
-                <a href="" class="sortbar-btn">銷量最佳</a>
+                <!-- <a href="" class="sortbar-btn">價格低到高</a>
+                <a href="" class="sortbar-btn">價格高到低</a> -->
               </div>
             </div>
-            <div class="row mt-4 bg-light py-3">
-              <div class="col-md-4 mb-4" v-for="item in products" :key="item.id">
+            <div class="row mt-4 py-3">
+              <div class="col-md-4 mb-4" v-for="item in filterData" :key="item.id">
                 <div class="card border-1 shadow">
-                  <div style="height: 200px; background-size: cover; background-position: center"
-                    :style="{backgroundImage: `url(${item.imageUrl})`}">
+                  <div style="height: 200px; background-size: contain; background-position: center; background-repeat: no-repeat; cursor: pointer"
+                    :style="{backgroundImage: `url(${item.imageUrl})`}" @click="$router.push(`/product/${item.id}`)">
                   </div>
                   <div class="card-body">
-                    <span class="badge badge-secondary float-right ml-2">{{ item.category }}</span>
                     <h5 class="card-title">
                       <a href="#" class="text-dark">{{ item.title }}</a>
                     </h5>
-                    <p class="card-text">{{ item.content }}</p>
+                    <!-- <p class="card-text">{{ item.content }}</p> -->
                     <div class="d-flex justify-content-between align-items-baseline">
-                      <div class="h5" v-if="!item.price">{{ item.origin_price }} 元</div>
-                      <del class="h6" v-if="item.price">原價 {{ item.origin_price }} 元</del>
-                      <div class="h5" v-if="item.price">現在只要 {{ item.price }} 元</div>
+                      <div class="h5" v-if="!item.price">{{ item.origin_price }}</div>
+                      <del class="h6" v-if="item.price">$ {{ item.origin_price }}</del>
+                      <div class="h5 text-danger" v-if="item.price">$ {{ item.price }}</div>
+                    </div>
+                    <div class="d-flex mt-2">
+                      <span class="badge badge-info mr-auto">{{ item.category }}</span>
+                      <i class="far fa-heart cursor" style="cursor: pointer"></i>
                     </div>
                   </div>
                   <div class="card-footer d-flex">
-                    <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.push(`/product/${item.id}`)" >
+                    <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.push(`/product/${item.id}`)">
                       <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
                       查看更多
                     </button>
                     <button type="button" class="btn btn-outline-danger btn-sm ml-auto" @click="addToCart(item.id)">
                       <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                      加到購物車
+                      立即購買
                     </button>
                   </div>
                 </div>
@@ -278,24 +280,47 @@ export default {
         message: ''
       },
       cart: {},
-      isLoading: false
+      prodCategory: '',
+      searchFilter: '',
+      searchResult: []
     }
   },
   methods: {
     getProducts () {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/products`
       const vm = this
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
       vm.isLoading = true
       this.$http.get(api).then(response => {
-        // console.log(response.data)
-        vm.isLoading = false
+        console.log('getProducts', response.data)
         vm.products = response.data.products
+        vm.isLoading = false
       })
+    },
+    changeTab (prodCategory) {
+      const vm = this
+      vm.prodCategory = prodCategory
+      vm.searchFilter = ''
+      vm.searchResult = []
+      console.log(prodCategory)
+      // vm.pagination.current_page=1;
+    }
+  },
+  computed: {
+    filterData () {
+      const vm = this
+      if (vm.searchFilter || vm.searchResult.length) {
+        return vm.searchResult
+      } else {
+      // console.log(this.product)
+        return this.products.filter((item) => {
+          return vm.prodCategory === '' ? item : item.category === vm.prodCategory
+        })
+      }
     }
   },
   created () {
+    // this.filter(this.$route.params.product)
     this.getProducts()
-    // this.getCart();
   }
 }
 </script>

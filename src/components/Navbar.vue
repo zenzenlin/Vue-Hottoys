@@ -46,8 +46,7 @@
                 class="dropdown-menu dropdown-menu-right p-3"
                 style="min-width: 300px"
                 data-offset="400"
-                v-if="cart.carts.length"
-              >
+                v-if="cart.carts.length">
                 <h6>已選擇商品</h6>
                 <table class="table table-sm" v-if="cart.carts.length">
                   <tbody>
@@ -57,15 +56,15 @@
                           <i class="far fa-trash-alt"></i>
                         </a>
                       </td>
-                      <td class="align-middle">{{ item.product.title }}</td>
-                      <td class="align-middle">{{ item.qty }}{{item.product.unit}}</td>
-                      <td class="align-middle text-right">{{item.total}}</td>
+                      <td class="align-middle" width="100">{{ item.product.title }}</td>
+                      <td class="align-middle">{{ item.qty }} {{item.product.unit}}</td>
+                      <td class="align-middle text-right">$ {{item.total}}</td>
                     </tr>
                   </tbody>
                 </table>
                 <div class="d-flex border-top border-bottom mb-3 p-1">
                   <span class="text-uppercase text-muted">Total</span>
-                  <strong class="ml-auto">{{ cart.total }}</strong>
+                  <strong class="ml-auto">$ {{ cart.total }}</strong>
                 </div>
                 <button class="btn btn-outline-info btn-block">
                   <i class="fa fa-cart-plus" aria-hidden="true"></i> 結帳去
@@ -89,8 +88,7 @@
 export default {
   data () {
     return {
-      isShow: false,
-      cart: {}
+      isShow: false
     }
   },
   methods: {
@@ -98,26 +96,19 @@ export default {
       this.isShow = true
     },
     getCart () {
-      const vm = this
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      this.$http.get(api).then((response) => {
-        vm.cart = response.data.data
-        console.log('getCart', response)
-      })
+      this.$store.dispatch('getCart')
     },
     removeCartItem (id) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
-      const vm = this
-      vm.isLoading = true
-      this.$http.delete(api).then((response) => {
-        console.log('delete', response)
-        vm.getCart()
-        vm.isLoading = false
-      })
+      this.$store.dispatch('removeCartItem', id)
+    }
+  },
+  computed: {
+    cart () {
+      return this.$store.state.cart
     }
   },
   mounted () {
-    this.getCart()
+    this.$store.dispatch('getCart')
   }
 }
 </script>
