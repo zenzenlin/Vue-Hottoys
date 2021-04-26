@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <nav class="site-header navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <nav class="site-header navbar navbar-expand-md navbar-dark bg-dark">
         <router-link class="navbar-brand" to="/index">
           <img src="../assets/images/hottoys_logo.png" class="logo-style" alt="">
         </router-link>
@@ -10,16 +10,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item" :class="{'active':currentTab==='Home'}" @click="currentTab='Home'">
               <router-link class="nav-link" to="/index">Home</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" :class="{'active':currentTab==='Product'}" @click="currentTab='Product'">
               <router-link class="nav-link" to="/products">Product</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" :class="{'active':currentTab==='Features'}" @click="currentTab='Features'">
               <router-link class="nav-link" to="/products">Features</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" :class="{'active':currentTab==='Enterprise'}" @click="currentTab='Enterprise'">
               <router-link class="nav-link" to="/products">Enterprise</router-link>
             </li>
           </ul>
@@ -88,7 +88,8 @@
 export default {
   data () {
     return {
-      isShow: false
+      isShow: false,
+      currentTab: 'Home'
     }
   },
   methods: {

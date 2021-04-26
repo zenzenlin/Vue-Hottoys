@@ -4,7 +4,7 @@
       <!-- Marketing messaging and featurettes
       ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
-      <div class="container-fluid p-0 mt-5">
+      <div class="container-fluid p-0">
         <div class="banner-style banner"></div>
         <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false"><title> </title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em"> </text></svg> -->
         <div class="container">
@@ -29,7 +29,9 @@
               <div class="carousel-caption text-left">
                 <h1 class="font-family">Example headline.</h1>
                 <p>Some representative placeholder content for the first slide of the carousel.</p>
-                <p><a class="btn btn-lg btn-warning" href="#">Sign up today</a></p>
+                <p>
+                  <router-link class="btn btn-lg btn-warning" href="#" to="/products">Sign up today</router-link>
+                </p>
               </div>
             </div>
           </div>
@@ -40,7 +42,9 @@
               <div class="carousel-caption text-left">
                 <h1 class="font-family">Another example headline.</h1>
                 <p>Some representative placeholder content for the second slide of the carousel.</p>
-                <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                <p>
+                  <router-link class="btn btn-lg btn-primary" href="#" to="/products">Learn more</router-link>
+                </p>
               </div>
             </div>
           </div>
@@ -51,7 +55,9 @@
               <div class="carousel-caption text-left">
                 <h1 class="font-family">One more for good measure.</h1>
                 <p>Some representative placeholder content for the third slide of this carousel.</p>
-                <p><a class="btn btn-lg btn-danger" href="#">Browse gallery</a></p>
+                <p>
+                  <router-link class="btn btn-lg btn-danger" href="#" to="/products">Browse gallery</router-link>
+                </p>
               </div>
             </div>
           </div>
@@ -128,20 +134,9 @@
 </template>
 
 <script>
-// import Slider from '@/components/Slider'
-
 export default {
-  components: {
-  },
   data () {
-    return {
-      isShow: false
-    }
-  },
-  methods: {
-    searchShow () {
-      this.isShow = true
-    }
+    return {}
   }
 }
 </script>

@@ -1,7 +1,8 @@
 <template>
   <div>
-    <main class="pt-5">
-      <div class="container pt-4">
+    <loading :active.sync="isLoading"></loading>
+    <main>
+      <div class="container">
         <div class="banner-pic d-flex">
         </div>
       </div>
@@ -9,130 +10,72 @@
         <div class="row">
           <div class="col-12 col-lg-2 mb-3">
             <div class="sidebar">
-              <div class="sidebar-top">
-                <ul class="category-root">
-                  <li class="category-inner">
-                    <div class="category-inner-div">
-                      <a href class="category-inner-a">
-                        <span>強打活動</span>
-                      </a>
-                      <div class="category-inner-arrow">
-                        <span><svg
-                        class=""
-                        width="20"
-                        height="20"
-                        viewBox="0 0 48 48"
-                        data-icon="caret-down"
-                        style="fill: rgb(151, 155, 167); stroke: rgb(151, 155, 167); stroke-width: 0; vertical-align: bottom;">
-                        <path
-                          d="M24.21 33.173l12.727-12.728c.78-.78.78-2.048 0-2.828-.78-.78-2.047-.78-2.828 0l-9.9 9.9-9.9-9.9c-.78-.78-2.047-.78-2.827 0-.78.78-.78 2.047 0 2.828L24.21 33.173z"/>
-                        </svg></span>
-                      </div>
-                    </div>
-                    <div class="inner-div">
-                      <ul class="category-inner-ul">
-                        <li class="category-inner-li">
-                          <div class="d-flex">
-                            <a href="#" @click.prevent="changeTab('classic')" :class="{'active':prodCategory==='classic'}">
-                              <span>經典超值</span>
-                            </a>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="category-inner">
-                    <div class="category-inner-div">
-                      <a href class="category-inner-a">
-                        <span>New in</span>
-                      </a>
-                      <div class="category-inner-arrow">
-                        <span><svg
-                        class=""
-                        width="20"
-                        height="20"
-                        viewBox="0 0 48 48"
-                        data-icon="caret-down"
-                        style="fill: rgb(151, 155, 167); stroke: rgb(151, 155, 167); stroke-width: 0; vertical-align: bottom;">
-                        <path
-                          d="M24.21 33.173l12.727-12.728c.78-.78.78-2.048 0-2.828-.78-.78-2.047-.78-2.828 0l-9.9 9.9-9.9-9.9c-.78-.78-2.047-.78-2.827 0-.78.78-.78 2.047 0 2.828L24.21 33.173z"/>
-                        </svg></span>
-                      </div>
-                    </div>
-                    <div class="inner-div">
-                      <ul class="category-inner-ul">
-                        <li class="category-inner-li">
-                          <div class="d-flex">
-                            <a href="#" @click.prevent="changeTab('newin')" :class="{'active':prodCategory==='newin'}">
-                              <span>注目新品</span>
-                            </a>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="category-inner">
-                    <div class="category-inner-div">
-                      <a href class="category-inner-a">
-                        <span>MARVEL</span>
-                      </a>
-                      <div class="category-inner-arrow">
-                        <span><svg
-                        class=""
-                        width="20"
-                        height="20"
-                        viewBox="0 0 48 48"
-                        data-icon="caret-down"
-                        style="fill: rgb(151, 155, 167); stroke: rgb(151, 155, 167); stroke-width: 0; vertical-align: bottom;">
-                        <path
-                          d="M24.21 33.173l12.727-12.728c.78-.78.78-2.048 0-2.828-.78-.78-2.047-.78-2.828 0l-9.9 9.9-9.9-9.9c-.78-.78-2.047-.78-2.827 0-.78.78-.78 2.047 0 2.828L24.21 33.173z"/>
-                        </svg></span>
-                      </div>
-                    </div>
-                    <div class="inner-div">
-                      <ul class="category-inner-ul">
-                        <li class="category-inner-li">
-                          <div class="d-flex">
-                            <a href="#" @click.prevent="changeTab('ironman')" :class="{'active':prodCategory==='ironman'}">
-                              <span>IRON MAN</span>
-                            </a>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="category-inner">
-                    <div class="category-inner-div">
-                      <a href class="category-inner-a">
-                        <span>DC</span>
-                      </a>
-                      <div class="category-inner-arrow">
-                        <span><svg
-                        class=""
-                        width="20"
-                        height="20"
-                        viewBox="0 0 48 48"
-                        data-icon="caret-down"
-                        style="fill: rgb(151, 155, 167); stroke: rgb(151, 155, 167); stroke-width: 0; vertical-align: bottom;">
-                        <path
-                          d="M24.21 33.173l12.727-12.728c.78-.78.78-2.048 0-2.828-.78-.78-2.047-.78-2.828 0l-9.9 9.9-9.9-9.9c-.78-.78-2.047-.78-2.827 0-.78.78-.78 2.047 0 2.828L24.21 33.173z"/>
-                        </svg></span>
-                      </div>
-                    </div>
-                    <div class="inner-div">
-                      <ul class="category-inner-ul">
-                        <li class="">
-                          <div class="d-flex">
-                            <a href="#" @click.prevent="changeTab('wonderwoman')" :class="{'active':prodCategory==='wonderwoman'}">
-                              <span>WONDER WOMAN</span>
-                            </a>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+              <ul class="category-root">
+                <li>
+                  <div class="dropdown__header" @click="toggleDropdown($event)">
+                    <span>強打活動</span>
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    <i class="fa fa-angle-up" aria-hidden="true"></i>
+                  </div>
+                  <ul class="dropdown__content category-inner">
+                    <li @click.prevent="changeTab('classic')" :class="{'category-inner-active':prodCategory==='classic'}">
+                      <a href="#">classic</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="dropdown__header" @click="toggleDropdown($event)">
+                    <span>New in</span>
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    <i class="fa fa-angle-up" aria-hidden="true"></i>
+                  </div>
+                  <ul class="dropdown__content category-inner">
+                    <li @click.prevent="changeTab('newin')" :class="{'category-inner-active':prodCategory==='newin'}">
+                      <a href="#">New arrival</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="dropdown__header" @click="toggleDropdown($event)">
+                    <span>MARVEL</span>
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    <i class="fa fa-angle-up" aria-hidden="true"></i>
+                  </div>
+                  <ul class="dropdown__content category-inner">
+                    <li @click.prevent="changeTab('ironman')" :class="{'category-inner-active':prodCategory==='ironman'}">
+                      <a href="#">Iron man</a>
+                    </li>
+                  </ul>
+                </li>
+                <!-- <li>
+                  <div class="d-flex justify-content-between align-items-center category-font">DC
+                    <span class="arrow"></span>
+                  </div>
+                  <ul class="category-inner">
+                    <li @click.prevent="changeTab('batman')" :class="{'category-inner-active':prodCategory==='batman'}">
+                      <a href="#">Batman</a>
+                    </li>
+                    <li @click.prevent="changeTab('wonderwoman')" :class="{'category-inner-active':prodCategory==='wonderwoman'}">
+                      <a href="#">Wonderwoman</a>
+                    </li>
+                  </ul>
+                </li> -->
+                <li>
+                  <div class="dropdown__header" @click="toggleDropdown($event)">
+                    <span>DC</span>
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    <i class="fa fa-angle-up" aria-hidden="true"></i>
+                  </div>
+                  <ul class="dropdown__content category-inner">
+                    <li @click.prevent="changeTab('batman')" :class="{'category-inner-active':prodCategory==='batman'}">
+                      <a href="#">Batman</a>
+                    </li>
+                    <li @click.prevent="changeTab('wonderwoman')" :class="{'category-inner-active':prodCategory==='wonderwoman'}">
+                      <a href="#">Wonderwoman</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </div>
           </div>
           <div class="col-12 col-lg-10">
@@ -187,7 +130,7 @@
                   </div>
                   <div class="card-body">
                     <h5 class="card-title">
-                      <a href="#" class="text-dark">{{ item.title }}</a>
+                      <a href="#" class="text-dark" @click="$router.push(`/product/${item.id}`)">{{ item.title }} </a>
                     </h5>
                     <!-- <p class="card-text">{{ item.content }}</p> -->
                     <div class="d-flex justify-content-between align-items-baseline">
@@ -202,17 +145,16 @@
                   </div>
                   <div class="card-footer d-flex">
                     <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.push(`/product/${item.id}`)">
-                      <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
                       查看更多
                     </button>
                     <button type="button" class="btn btn-outline-danger btn-sm ml-auto" @click="addToCart(item.id)">
-                      <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
                       立即購買
                     </button>
                   </div>
                 </div>
               </div>
             </div>
+            <pagination class="d-flex justify-content-center" :pages="pagination" @emitPages="getProducts"></pagination>
 
             <!-- <div class="item-list">
               <div class="item-box">
@@ -254,46 +196,35 @@
 </template>
 
 <script>
-// import 'swiper/dist/css/swiper.css'
-// import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import pagination from '../components/pagination'
 
 export default {
   name: 'list',
-  // components: {
-  //   swiper, swiperSlide
-  // },
+  components: {
+    pagination
+  },
   data () {
     return {
       products: [],
       product: {},
-      status: {
-        loadingItem: ''
-      },
       coupon_code: '',
-      form: {
-        user: {
-          name: '',
-          email: '',
-          tel: '',
-          address: ''
-        },
-        message: ''
-      },
-      cart: {},
       prodCategory: '',
       searchFilter: '',
-      searchResult: []
+      searchResult: [],
+      pagination: {},
+      isLoading: false
     }
   },
   methods: {
-    getProducts () {
+    getProducts (page = 1) {
       const vm = this
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`
       vm.isLoading = true
       this.$http.get(api).then(response => {
         console.log('getProducts', response.data)
         vm.products = response.data.products
         vm.isLoading = false
+        vm.pagination = response.data.pagination
       })
     },
     changeTab (prodCategory) {
@@ -303,23 +234,25 @@ export default {
       vm.searchResult = []
       console.log(prodCategory)
       // vm.pagination.current_page=1;
+    },
+    toggleDropdown (event) {
+      event.currentTarget.classList.toggle('is-active')
     }
   },
   computed: {
     filterData () {
       const vm = this
-      if (vm.searchFilter || vm.searchResult.length) {
-        return vm.searchResult
-      } else {
+      // if (vm.searchFilter || vm.searchResult.length) {
+      //   return vm.searchResult
+      // } else {
       // console.log(this.product)
-        return this.products.filter((item) => {
-          return vm.prodCategory === '' ? item : item.category === vm.prodCategory
-        })
-      }
+      return vm.products.filter((item) => {
+        return vm.prodCategory === '' ? item : item.category === vm.prodCategory
+      })
+      // }
     }
   },
   created () {
-    // this.filter(this.$route.params.product)
     this.getProducts()
   }
 }
@@ -334,51 +267,73 @@ export default {
   font-family: monospace;
   // background-repeat: no-repeat;
 }
-.sidebar-top {
+.sidebar {
   border-radius: 8px;
   border: 1px solid #e0e4e9;
   overflow: hidden;
   .category-root {
     list-style: none;
     padding: 0;
+    div {
+      padding: 8px 10px;
+    }
     cursor: pointer;
     .category-inner{
-      display: flex;
-      flex-direction: column;
       list-style: none;
       padding: 0;
-      margin: 0;
-      .category-inner-div{
-        position: relative;
-        display: flex;
-        .category-inner-arrow{
-          position: absolute;
-          right: 4px;
-          top: 6px;
-        }
+      li{
+        padding: 4px 12px;
       }
-      .inner-div:hover{
+      a {
+        padding: 0px 14px;
+        text-decoration: none;
+        color: #26282a;
+      }
+      li:hover{
         background: #f1f1f5;
       }
-      .category-inner-a{
-        font-weight: 600;
-      }
-      a{
-        display: inline-block;
-        flex-grow: 3;
-        color: #26282a;
-        text-decoration: none;
-        padding: 8px 30px 8px 8px;
-        cursor: pointer;
-      }
-      .category-inner-ul{
-        list-style: none;
-        margin: 0;
-        padding: 0 0 0 8px;
-      }
+    }
+    .category-inner-active{
+      background: #f1f1f5;
     }
   }
 }
+
+.dropdown__header {
+  font-weight: 600;
+  position: relative;
+  i.fa {
+    position: absolute;
+    right: 10px;
+    transform: translateY(30%);
+    transition: opacity .3s;
+    &.fa-angle-up {
+      opacity: 0;
+    }
+  }
+  &.is-active {
+    i.fa {
+      &.fa-angle-up {
+        opacity: 1;
+      }
+      &.fa-angle-down {
+        opacity: 0;
+      }
+    }
+    + .dropdown__content {
+      height: 0;
+      opacity: 0;
+      display: none;
+    }
+  }
+}
+.dropdown__content {
+  height: auto;
+  opacity: 1;
+  transition: opacity .3s;
+  display: block;
+}
+
 .sortbar{
   height: 38px;
   margin: 0 0 24px 0;
