@@ -187,14 +187,14 @@ body {
   background-repeat: no-repeat;
 }
 .img1{
-  background-image: url(../assets/images/ironman1.jpeg);
+  background-image: url(../assets/images/ironman1.jpg);
 }
 .img2{
-  background-image: url(../assets/images/batman.jpeg);
+  background-image: url(../assets/images/batman.jpg);
   height: 600px;
 }
 .img3{
-  background-image: url(../assets/images/wonderwoman.jpeg);
+  background-image: url(../assets/images/wonderwoman.jpg);
   height: 600px;
 }
 .banner-style{

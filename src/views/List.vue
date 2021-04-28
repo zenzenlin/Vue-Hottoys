@@ -80,52 +80,33 @@
           </div>
           <div class="col-12 col-lg-10">
             <div class="sortbar align-items-center">
-              <span class="sortbar-result"></span>
               <div class="sortbar-select">
-                <div class="sortbar-btn-first">
-                  <div class="show">
-                    <span class="">
-                      綜合排序
-                      <svg
-                        class=""
-                        width="20"
-                        height="36"
-                        viewBox="0 0 48 48"
-                        data-icon="caret-down"
-                        style="fill: rgb(151, 155, 167); stroke: rgb(151, 155, 167); stroke-width: 0; vertical-align: bottom;">
-                        <path
-                          d="M24.21 33.173l12.727-12.728c.78-.78.78-2.048 0-2.828-.78-.78-2.047-.78-2.828 0l-9.9 9.9-9.9-9.9c-.78-.78-2.047-.78-2.827 0-.78.78-.78 2.047 0 2.828L24.21 33.173z"/>
-                      </svg>
-                    </span>
-                  </div>
+                <div class="sortbar-font">
+                  <span>
+                    SORT BY
+                    <svg width="20"  height="36"  viewBox="0 0 48 48"  data-icon="caret-down"
+                      style="fill: rgb(151, 155, 167); stroke: rgb(151, 155, 167); stroke-width: 0; vertical-align: bottom;">
+                      <path d="M24.21 33.173l12.727-12.728c.78-.78.78-2.048 0-2.828-.78-.78-2.047-.78-2.828 0l-9.9 9.9-9.9-9.9c-.78-.78-2.047-.78-2.827 0-.78.78-.78 2.047 0 2.828L24.21 33.173z"/>
+                    </svg>
+                  </span>
                   <div class="hidden">
-                    <span class="inner-btn">
-                      <svg
-                        class=""
-                        width="16"
-                        height="36"
-                        viewBox="0 0 48 48"
-                        data-icon="checkmark"
-                        style="fill: rgb(122, 77, 255); stroke: rgb(122, 77, 255); stroke-width: 0; vertical-align: bottom;">
-                        <path d="M44.414 13.566c.78-.78.78-2.047 0-2.828-.78-.78-2.047-.78-2.826 0L18.98 33.344 8.374 22.738c-.78-.78-2.048-.78-2.828 0-.78.78-.78 2.047 0 2.828L18.98 39l25.434-25.434z"/></svg>
-                      <span class="">綜合排序</span>
-                    </span>
-                    <a href="" class="">
-                      <span class="">價格低到高</span>
+                    <!-- <a href="" :class="{'inner-btn':currentSort==='MostPopular'}" @click.prevent="getProducts">
+                      <span class="">Most Popular</span>
+                    </a> -->
+                    <a href="" :class="{'inner-btn':currentSort==='Highest'}" @click.prevent="sortTable('Highest')">
+                      <span class="">Price (Highest First)</span>
                     </a>
-                    <a href="" class="">
-                      <span class="">價格高到低</span>
+                    <a href="" :class="{'inner-btn':currentSort==='Lowest'}" @click.prevent="sortTable('Lowest')">
+                      <span class="">Price (Lowest First)</span>
                     </a>
                   </div>
                 </div>
-                <!-- <a href="" class="sortbar-btn">價格低到高</a>
-                <a href="" class="sortbar-btn">價格高到低</a> -->
               </div>
             </div>
             <div class="row mt-4 py-3">
-              <div class="col-md-4 mb-4" v-for="item in filterData" :key="item.id">
+              <div class="col-lg-4 col-md-6 mb-4" v-for="item in filterData" :key="item.id">
                 <div class="card border-1 shadow">
-                  <div style="height: 200px; background-size: contain; background-position: center; background-repeat: no-repeat; cursor: pointer"
+                  <div class="mdSize" style="height: 200px; background-size: cover; background-position: center; background-repeat: no-repeat; cursor: pointer"
                     :style="{backgroundImage: `url(${item.imageUrl})`}" @click="$router.push(`/product/${item.id}`)">
                   </div>
                   <div class="card-body">
@@ -139,6 +120,7 @@
                       <div class="h5 text-danger" v-if="item.price">$ {{ item.price }}</div>
                     </div>
                     <div class="d-flex mt-2">
+                      <span class="badge badge-info mr-1">{{ item.category2 }}</span>
                       <span class="badge badge-info mr-auto">{{ item.category }}</span>
                       <i class="far fa-heart cursor" style="cursor: pointer"></i>
                     </div>
@@ -147,7 +129,7 @@
                     <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.push(`/product/${item.id}`)">
                       查看更多
                     </button>
-                    <button type="button" class="btn btn-outline-danger btn-sm ml-auto" @click="addToCart(item.id)">
+                    <button type="button" class="btn btn-outline-danger btn-sm ml-auto" @click="addToCart(item.id, qty)">
                       立即購買
                     </button>
                   </div>
@@ -155,39 +137,6 @@
               </div>
             </div>
             <pagination class="d-flex justify-content-center" :pages="pagination" @emitPages="getProducts"></pagination>
-
-            <!-- <div class="item-list">
-              <div class="item-box">
-                <div>
-                  <a href="" class="item-pic-wrap">
-                    <div class="item-pic"></div>
-                  </a>
-                  <div class="item-name">123</div>
-                </div>
-              </div>
-              <div class="item-box">
-                <div>
-                  <a href="" class="item-pic-wrap">
-                    <div class="item-pic"></div>
-                  </a>
-                  <div class="item-name">123</div>
-                </div>
-              </div>
-              <div class="item-box">
-                <div>
-                  <router-link to="/SingleProduct" class="item-pic-wrap">
-                    <div class="item-pic"></div>
-                  </router-link>
-                  <div class="item-name">123</div>
-                  <div class="price">
-                    <div class="origin">7500</div>
-                    <div class="sale">6000</div>
-                  </div>
-                  <div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -209,10 +158,11 @@ export default {
       product: {},
       coupon_code: '',
       prodCategory: '',
-      searchFilter: '',
-      searchResult: [],
+      currentPage: 0,
       pagination: {},
-      isLoading: false
+      isLoading: false,
+      currentSort: '',
+      qty: 1
     }
   },
   methods: {
@@ -230,13 +180,21 @@ export default {
     changeTab (prodCategory) {
       const vm = this
       vm.prodCategory = prodCategory
-      vm.searchFilter = ''
-      vm.searchResult = []
-      console.log(prodCategory)
-      // vm.pagination.current_page=1;
     },
     toggleDropdown (event) {
       event.currentTarget.classList.toggle('is-active')
+    },
+    sortTable (currentSort) {
+      const vm = this
+      vm.currentSort = currentSort
+      if (currentSort === 'Lowest') {
+        this.products.sort((a, b) => a.price > b.price ? 1 : -1)
+      } else {
+        this.products.sort((a, b) => a.price < b.price ? 1 : -1)
+      }
+    },
+    addToCart (id, qty) {
+      this.$store.dispatch('addToCart', { id, qty })
     }
   },
   computed: {
@@ -247,7 +205,7 @@ export default {
       // } else {
       // console.log(this.product)
       return vm.products.filter((item) => {
-        return vm.prodCategory === '' ? item : item.category === vm.prodCategory
+        return vm.prodCategory === '' ? item : item.category === vm.prodCategory || item.category2 === vm.prodCategory
       })
       // }
     }
@@ -340,62 +298,47 @@ export default {
   background: #f1f1f5;
   border-radius: 8px;
   box-sizing: border-box;
-  display: flex;
-  .sortbar-result{
-    // display: inline-block;
-    margin-right: auto;
-    line-height: 36px;
-    padding-left: 8px;
-  }
+  line-height: 36px;
+  padding-left: 8px;
   .sortbar-select{
     display: flex;
+    justify-content: flex-end;
     line-height: 36px;
     font-size: 14px;
-    .sortbar-btn-first{
-      position: relative;
-      display: inline-block;
-      padding: 0 15px 0 0;
+    padding: 0 15px 0 0;
+    position: relative;
+    .sortbar-font{
+      font-weight: normal;
       cursor: pointer;
+      &:hover>div{
+        opacity: 1;
+      }
     }
-    .sortbar-btn{
-      text-decoration: none;
-      padding: 0 12px 0 12px;
-      line-height: 36px;
-      color: #26282a;
-      &:hover{
-        box-shadow: #979ba7 0 2px 0 0  ;
+    .hidden{
+      border: 1px solid #e0e4e9;
+      display: flex;
+      flex-direction: column;
+      z-index: 20;
+      opacity: 0;
+      background: white;
+      min-width: 160px;
+      position: absolute;
+      top: 36px;
+      a{
+        color: #26282a;
+        text-decoration: none;
+        padding: 0 8px;
+        &:hover{
+          background: #f1f1f5;
+        }
+      }
+      .inner-btn{
+        background: #f1f1f5;
       }
     }
   }
 }
-.hidden{
-  border: 1px solid #e0e4e9;
-  display: flex;
-  flex-direction: column;
-  width: 100px;
-  opacity: 0;
-  z-index: 20;
-  background: white;
-  position: absolute;
-  a{
-    color: #26282a;
-    text-decoration: none;
-    padding: 0 8px;
-    &:hover{
-      background: #f1f1f5;
-    }
-  }
-  .inner-btn{
-    display: inline-block;
-    padding: 0 8px;
-    &:hover{
-      background: #f1f1f5;
-    }
-  }
-}
-.sortbar-btn-first:hover>.hidden{
-  opacity: 1;
-}
+
 .item-list{
   display: inline-block;
   width: 100%;
@@ -424,7 +367,7 @@ export default {
         background-size: 150%;
         background-position: center center;
         background-repeat: no-repeat;
-        background-image: url(../assets/images/batman.jpeg);
+        background-image: url(../assets/images/batman.jpg);
       }
     }
     .item-name{
@@ -448,6 +391,26 @@ export default {
   .sale{
     font-size: 20px;
     color: red;
+  }
+}
+.card-title{
+  height: 40px;
+  margin-bottom: 10px;
+}
+@media screen and (min-width:768px) and (max-width:992px){
+  .card-title{
+    height: 60px;
+  }
+  .mdSize{
+    height: 180px !important;
+  }
+}
+@media (max-width:768px){
+  .mdSize{
+    height: 330px !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }
 </style>

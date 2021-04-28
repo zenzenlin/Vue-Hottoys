@@ -4,7 +4,7 @@
       <div class="col-md-7">
         <div class="content-watch">
           <img :src="product.imageUrl" class="img-fluid" alt="產品圖片" />
-          <div class="img-list">
+          <!-- <div class="img-list">
             <span class="img-hover">
               <img class="img" />
             </span>
@@ -14,12 +14,12 @@
             <span class="img-hover">
               <img class="img" />
             </span>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="col-md-5">
         <div class="parameter">
-          <h1 class="display-4">{{ product.title }}</h1>
+          <h1 class="display-5">{{ product.title }}</h1>
           <hr />
           <div class="detail py-3">
             <h5 class="mb-3">{{ product.description }}</h5>
@@ -292,7 +292,7 @@ export default {
 <style lang="scss">
 .main {
   margin: auto;
-  padding-top: 70px;
+  padding: 50px 20px;
   // margin-bottom: 50px;
   background: #ebebeb;
 }
@@ -300,7 +300,7 @@ hr {
   background: #e1e1e1;
 }
 .img {
-  background-image: url(../assets/images/batman.jpeg);
+  background-image: url(../assets/images/batman.jpg);
   // width: 100%;
   height: 600px;
   background-size: cover;

@@ -16,7 +16,7 @@
         <div class="content-div d-flex row">
           <div class="col-lg-4">
             <div class="img-div">
-              <img class="img" src="@/assets/images/batman.jpeg">
+              <img class="img" src="@/assets/images/batman.jpg">
             </div>
           </div>
           <div class="col-lg-8 d-flex align-items-center justify-content-around info-area">
@@ -44,7 +44,7 @@
         <div class="content-div d-flex row">
           <div class="col-lg-4">
             <div class="img-div">
-              <img class="img" src="@/assets/images/batman.jpeg">
+              <img class="img" src="@/assets/images/batman.jpg">
             </div>
           </div>
           <div class="col-lg-8 d-flex align-items-center justify-content-around info-area">

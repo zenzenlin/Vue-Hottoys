@@ -19,8 +19,8 @@
         <tr v-for="(item) in products" :key="item.id">
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>
-          <td class="text-right">{{ item.origin_price | currency}}</td>
-          <td class="text-right">{{ item.price | currency}}</td>
+          <td class="text-right">{{ item.origin_price }}</td>
+          <td class="text-right">{{ item.price }}</td>
           <td>
             <span v-if="item.is_enabeld==1" class="text-success">啟用</span>
             <span v-else>未啟用</span>
@@ -75,13 +75,19 @@
                 </div>
 
                 <div class="form-row">
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-4">
                     <label for="category">分類</label>
                     <input type="text" class="form-control" id="category"
                     v-model="tempProduct.category"
                       placeholder="請輸入分類">
                   </div>
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-4">
+                    <label for="category">分類2</label>
+                    <input type="text" class="form-control" id="category2"
+                    v-model="tempProduct.category2"
+                      placeholder="請輸入分類">
+                  </div>
+                  <div class="form-group col-md-4">
                     <label for="price">單位</label>
                     <input type="unit" class="form-control" id="unit"
                     v-model="tempProduct.unit"
@@ -255,6 +261,7 @@ export default {
       })
     },
     uploadImg () {
+      console.log(this)
       const uploadedFile = this.$refs.files.files[0]
       const vm = this
       const formData = new FormData()
