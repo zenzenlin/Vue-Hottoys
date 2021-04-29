@@ -36,18 +36,16 @@
               </router-link>
             </div>
             <!-- 購物車內的數量 (Button 內包含 icon, 數量 badge) -->
-            <input type="checkbox" id="check">
-            <label for="check">
-              <i class="fas fa-times" id="cancel"></i>
-            </label>
-            <div class="ml-auto">
-              <button class="btn btn-sm btn-cart" id="check">
+            <div class="mr-auto">
+              <button class="btn btn-sm btn-cart" data-toggle="dropdown" data-flip="false">
                 <i class="fa fa-shopping-cart text-light fa-2x" aria-hidden="true"></i>
-                <span class="badge badge-pill badge-danger position-absolute">{{cart.carts.length}}</span>
+                <span class="badge badge-pill badge-danger ">{{cart.carts.length}}</span>
                 <span class="sr-only">unread messages</span>
               </button>
-              <div class="cart p-3" v-if="cart.carts.length">
-                <h6>YOUR CART</h6>
+              <div class="dropdown-menu dropdown-menu-md-right mr-2 p-3" style="min-width: 300px" data-offset="400" v-if="cart.carts.length">
+                <div class="d-flex align-items-center">
+                  <h6>YOUR CART</h6>
+                </div>
                 <table class="table table-sm" v-if="cart.carts.length">
                   <tbody>
                     <tr v-for="item in cart.carts" :key="item.id">
@@ -56,13 +54,10 @@
                           <i class="far fa-trash-alt"></i>
                         </a>
                       </td>
-                      <td class="align-middle" width="180">{{ item.product.title }}</td>
-                      <td class="align-middle">
-                        <div class="cart_item-qty">
-                          <button @click="updateCart(item, '-')" type="button">−</button>
-                          <span type="number">{{ item.qty }}</span>
-                          <button @click="updateCart(item, '+')" type="button">+</button>
-                        </div>
+                      <td class="align-middle" width="180">
+                        <router-link class="text-muted" :to="`/product/${item.product.id}`">
+                          {{ item.product.title }}
+                        </router-link>
                       </td>
                       <td class="align-middle text-right">$ {{item.total}}</td>
                     </tr>
@@ -108,32 +103,6 @@ export default {
     },
     removeCartItem (id) {
       this.$store.dispatch('removeCartItem', id)
-    },
-    updateCart (items, status) {
-      const item = items
-      switch (status) {
-        case '+':
-          item.qty += 1
-          break
-        case '-':
-          item.qty -= 1
-          break
-        default:
-          break
-      }
-      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      const parm = {
-        product_id: item.product.id,
-        qty: item.qty
-      }
-      const deleteApi = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item.id}`
-      this.$http.post(url, { data: parm })
-      this.$http.delete(deleteApi).then((response) => {
-        if (response.data.success) {
-          this.getCart()
-          this.$store.dispatch('updateMessage', { message: '數量以更改', status: 'success' })
-        }
-      })
     }
   },
   computed: {
@@ -197,59 +166,5 @@ export default {
   align-items: center;
   border-radius: 50%;
   color:white;
-}
-.cart_item-qty{
-  display: flex;
-  width: 84px;
-  height: 30px;
-  border: 1px solid #d8d9d8;
-  line-height: 1;
-  button{
-    width: 33.33%;
-    font-size: 18px;
-    color: #919191;
-    border: none;
-    border-radius: 0;
-  }
-  input{
-    width: 66.66%;
-    text-align: right;
-    font-size: 12px;
-    color: #919191;
-    border: none;
-    border-radius: 0;
-  }
-}
-.cart{
-  position: fixed;
-  right: 0;
-  width: 420px;
-  height: 100%;
-  background: #fff;
-  transition: all .5s ease;
-}
-label #cancel{
-  position: absolute;
-  cursor: pointer;
-  background: #fff;
-  z-index: 1111;
-  right: 15px;
-  top: 50px;
-  font-size: 26px;
-  color: red;
-  padding: 4px 9px;
-  transition: .5s ease;
-}
-#check:checked ~ .cart{
-  position: fixed;
-  right: 0;
-  width: 0px;
-  height: 0%;
-  background: #000;
-  transition: all .5s ease;
-}
-/* 原本躲在左邊點選後要顯現 */
-#check:checked ~ label #cancel{
-  right: -100px;
 }
 </style>

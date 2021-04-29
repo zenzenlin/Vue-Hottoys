@@ -64,7 +64,12 @@
             </a>
             <div class="mr-auto">
               <h6 class="my-0">{{ item.product.title }}</h6>
-              <small class="text-muted">{{ item.qty }} {{item.product.unit}}</small>
+              <!-- <small class="text-muted">{{ item.qty }} {{item.product.unit}}</small> -->
+              <div class="cart_item-qty">
+                <button @click="updateCart(item, '-')" type="button">−</button>
+                <span type="number">{{ item.qty }}</span>
+                <button @click="updateCart(item, '+')" type="button">+</button>
+              </div>
             </div>
             <span class="text-muted text-right">${{item.total}}</span>
           </li>
@@ -253,6 +258,32 @@ export default {
         vm.isLoading = false
       })
     },
+    updateCart (items, status) {
+      const item = items
+      switch (status) {
+        case '+':
+          item.qty += 1
+          break
+        case '-':
+          item.qty -= 1
+          break
+        default:
+          break
+      }
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      const parm = {
+        product_id: item.product.id,
+        qty: item.qty
+      }
+      const deleteApi = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item.id}`
+      this.$http.post(url, { data: parm })
+      this.$http.delete(deleteApi).then((response) => {
+        if (response.data.success) {
+          this.getCart()
+          this.$store.dispatch('updateMessage', { message: '數量以更改', status: 'success' })
+        }
+      })
+    },
     createOrder () {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/order/`
       const vm = this
@@ -343,5 +374,28 @@ export default {
 .form-container{
   max-width: 80%;
   margin: 0 auto;
+}
+.cart_item-qty{
+  display: flex;
+  width: 84px;
+  height: 30px;
+  border: 1px solid #d8d9d8;
+  line-height: 1;
+  button{
+    width: 33.33%;
+    font-size: 18px;
+    color: #919191;
+    border: none;
+    border-radius: 0;
+  }
+  span{
+    width: 33.33%;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+    color: #919191;
+    border: none;
+    border-radius: 0;
+  }
 }
 </style>
