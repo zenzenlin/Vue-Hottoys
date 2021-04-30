@@ -6,8 +6,8 @@ import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 import 'bootstrap'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-import VeeValidate from 'vee-validate'
-import zhTWValidate from 'vee-validate/dist/locale/zh_TW'
+import { ValidationObserver, ValidationProvider, extend, configure } from 'vee-validate'
+import * as rules from 'vee-validate/dist/rules'
 
 import App from './App.vue'
 import router from './router'
@@ -19,9 +19,19 @@ Vue.use(VueAxios, axios)
 Vue.use(Loading)
 Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper/* { default global options } */)
-Vue.use(VeeValidate)
-VeeValidate.Validator.localize('zh_TW', zhTWValidate)
-axios.defaults.withCredentials = true
+Object.keys(rules).forEach((rule) => {
+  extend(rule, rules[rule])
+})
+
+Vue.component('ValidationObserver', ValidationObserver)
+Vue.component('ValidationProvider', ValidationProvider)
+
+configure({
+  classes: {
+    valid: 'is-valid',
+    invalid: 'is-invalid'
+  }
+})
 
 Vue.component('Loading', Loading)
 

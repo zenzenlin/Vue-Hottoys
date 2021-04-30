@@ -59,6 +59,9 @@
                           {{ item.product.title }}
                         </router-link>
                       </td>
+                      <td class="align-middle">
+                        <span>{{item.qty}} {{item.product.unit}}</span>
+                      </td>
                       <td class="align-middle text-right">$ {{item.total}}</td>
                     </tr>
                   </tbody>
@@ -73,9 +76,11 @@
                   </button>
                 </router-link>
               </div>
-              <div class="p-3 text-center" v-else>
-                YOUR CART LOOKS A LITTLE EMPTY!
-                <span class="text-center">Start your journey here soon...</span>
+              <div class="dropdown-menu dropdown-menu-md-right mr-2 p-3 text-center" v-else>
+                <p>YOUR CART LOOKS A LITTLE EMPTY!</p>
+                <router-link to="/products">
+                  <span class="text-center">Start your journey here soon...</span>
+                </router-link>
               </div>
             </div>
           </div>

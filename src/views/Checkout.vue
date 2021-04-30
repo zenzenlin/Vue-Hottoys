@@ -71,7 +71,7 @@
                 <button @click="updateCart(item, '+')" type="button">+</button>
               </div>
             </div>
-            <span class="text-muted text-right">${{item.total}}</span>
+            <span class="text-muted text-right" :class="{'addCoupon': cart.final_total !== cart.total}">${{item.total}}</span>
           </li>
           <li class="list-group-item d-flex justify-content-between" v-if="cart.final_total == cart.total">
             <span>Total</span>
@@ -94,128 +94,67 @@
       </div>
       <div class="col-md-7 order-md-1">
         <h4 class="mb-3 text-muted">CONTACT INFORMATION</h4>
-        <form ref="dataForm" @submit.prevent="createOrder">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="firstName">First name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value=""
-              :class="{'is-invalid' : errors.has('name')}"
-              v-model="form.user.name"
-              v-validate="'required'">
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
+        <validation-observer v-slot="{ invalid, handleSubmit }">
+          <form ref="dataForm" @submit.prevent="handleSubmit(createOrder)">
+            <div class="row">
+              <validation-provider class="col-md-6 mb-3" rules="required" v-slot="{ errors, classes }">
+                <!-- 輸入框 -->
+                <label for="firstName">Name</label>
+                <input id="firstName" type="text" name="name" v-model="form.user.name"
+                    class="form-control" :class="classes">
+                <!-- 錯誤訊息 -->
+                <span class="invalid-feedback">{{ errors[0] }}</span>
+              </validation-provider>
+              <validation-provider class="col-md-6 mb-3" rules="required" v-slot="{ errors, classes }">
+                <!-- 輸入框 -->
+                <label for="phone">Phone</label>
+                <input id="phone" type="number" name="phone" v-model="form.user.tel"
+                    class="form-control" :class="classes">
+                <!-- 錯誤訊息 -->
+                <span class="invalid-feedback">{{ errors[0] }}</span>
+              </validation-provider>
             </div>
-            <div class="col-md-6 mb-3">
-              <label for="lastName">Last name</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" value="">
-              <div class="invalid-feedback" required>
-                Valid last name is required.
-              </div>
+            <div class="row">
+              <validation-provider class="col-md mb-3" rules="required|email" v-slot="{ errors, classes, passed }">
+                <!-- 輸入框 -->
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" v-model="form.user.email" placeholder="you@example.com"
+                    class="form-control" :class="classes">
+                <!-- 錯誤訊息 -->
+                <span class="invalid-feedback">{{ errors[0] }}</span>
+                <span v-if="passed" class="valid-feedback">Email is correct</span>
+              </validation-provider>
             </div>
-          </div>
+            <div class="row">
+              <validation-provider class="col-md mb-3" rules="required" v-slot="{ errors, classes }">
+                <!-- 輸入框 -->
+                <label for="address">Address</label>
+                <input id="address" type="text" name="address" v-model="form.user.address" placeholder="1234 Main St"
+                    class="form-control" :class="classes">
+                <!-- 錯誤訊息 -->
+                <span class="invalid-feedback">{{ errors[0] }}</span>
+              </validation-provider>
+            </div>
+            <div>
+              <label for="comment">Comment</label>
+              <textarea class="form-control" name="comment" v-model="form.message" id="comment" rows="4"></textarea>
+            </div>
 
-          <div class="mb-3">
-            <label for="email">Email <span class="text-muted">(Optional)</span></label>
-            <input type="email" class="form-control" id="email" placeholder="you@example.com"
-            :class="{'is-invalid' : errors.has('email')}"
-            v-model="form.user.email"
-            v-validate="'required|email'" required>
-            <span class="text-danger" v-if="errors.has('email')">{{errors.first('email')}}</span>
-          </div>
-
-          <div class="mb-3">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" id="address" placeholder="1234 Main St"
-            :class="{'is-invalid' : errors.has('address')}"
-            v-model="form.user.address"
-            v-validate="'required'" required>
-            <span class="text-danger" v-if="errors.has('address')">Please enter your shipping address.</span>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label for="inputCity">City</label>
-              <input type="text" class="form-control" id="inputCity">
+            <hr class="mb-4">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="same-address">
+              <label class="custom-control-label" for="same-address">Shipping address is the same as my contact address</label>
             </div>
-            <div class="form-group col-md-4">
-              <label for="inputState">State</label>
-              <select id="inputState" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
-              </select>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="save-info">
+              <label class="custom-control-label" for="save-info">Save this information for next time</label>
             </div>
-            <div class="form-group col-md-4">
-              <label for="inputPhone">Phone</label>
-              <input type="number" class="form-control" id="inputPhone" v-model="form.user.tel">
+            <hr class="mb-4">
+            <div class="text-right">
+              <button class="btn btn-lg btn-info w-100" :disabled="invalid" type="submit">CONTINUE TO CHECKOUT</button>
             </div>
-          </div>
-
-          <hr class="mb-4">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="same-address">
-            <label class="custom-control-label" for="same-address">Shipping address is the same as my contact address</label>
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="save-info">
-            <label class="custom-control-label" for="save-info">Save this information for next time</label>
-          </div>
-          <hr class="mb-4">
-
-          <!-- <h4 class="mb-3">Payment</h4> -->
-
-          <!-- <div class="d-block my-3">
-            <div class="custom-control custom-radio">
-              <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-              <label class="custom-control-label" for="credit">Credit card</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-              <label class="custom-control-label" for="debit">Debit card</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-              <label class="custom-control-label" for="paypal">PayPal</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="cc-name">Name on card</label>
-              <input type="text" class="form-control" id="cc-name" placeholder="" required>
-              <small class="text-muted">Full name as displayed on card</small>
-              <div class="invalid-feedback">
-                Name on card is required
-              </div>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="cc-number">Credit card number</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required>
-              <div class="invalid-feedback">
-                Credit card number is required
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 mb-3">
-              <label for="cc-expiration">Expiration</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-              <div class="invalid-feedback">
-                Expiration date required
-              </div>
-            </div>
-            <div class="col-md-3 mb-3">
-              <label for="cc-cvv">CVV</label>
-              <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-              <div class="invalid-feedback">
-                Security code required
-              </div>
-            </div>
-          </div> -->
-          <!-- <hr class="mb-4"> -->
-          <div class="text-right">
-            <button class="btn btn-lg btn-info w-100" type="submit">CONTINUE TO SHOPPING</button>
-          </div>
-        </form>
+          </form>
+        </validation-observer>
       </div>
     </div>
   </div>
@@ -251,24 +190,22 @@ export default {
       const coupon = {
         code: vm.coupon_code
       }
-      vm.isLoading = true
       this.$http.post(api, { data: coupon }).then((response) => {
         console.log('addCoupon', response)
         this.$store.dispatch('getCart')
-        vm.isLoading = false
+        this.coupon_code = ''
       })
     },
     updateCart (items, status) {
       const item = items
-      switch (status) {
-        case '+':
-          item.qty += 1
-          break
-        case '-':
-          item.qty -= 1
-          break
-        default:
-          break
+      if (status === '+') {
+        item.qty += 1
+      } else if (status === '-') {
+        item.qty -= 1
+        if (item.qty === 0) {
+          this.removeCartItem(item.id)
+          return
+        }
       }
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
       const parm = {
@@ -288,20 +225,13 @@ export default {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/order/`
       const vm = this
       const order = vm.form
-      this.$validator.validate().then((result) => {
-        if (result) {
-          this.$http.post(api, { data: order }).then(response => {
-            console.log('createOrder', response)
-            if (response.data.success) {
-              vm.$router.push(`customcheckout/${response.data.orderId}`)
-            }
-            vm.isLoading = false
-            this.$refs.dataForm.reset()
-          })
-        } else {
-          console.log('欄位不完整')
-          this.$refs.dataForm.reset()
+      this.$http.post(api, { data: order }).then(response => {
+        console.log('createOrder', response)
+        if (response.data.success) {
+          vm.$router.push(`paycheck/${response.data.orderId}`)
         }
+        vm.isLoading = false
+        this.$refs.dataForm.reset()
       })
     }
   },
@@ -397,5 +327,8 @@ export default {
     border: none;
     border-radius: 0;
   }
+}
+.addCoupon {
+  text-decoration: line-through
 }
 </style>

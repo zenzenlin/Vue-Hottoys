@@ -1,9 +1,12 @@
 <template>
-  <div class="container fluid main">
+  <div class="container main">
     <div class="row">
       <div class="col-md-7">
         <div class="content-watch">
-          <img :src="product.imageUrl" class="img-fluid" alt="產品圖片" />
+          <div class="img-fluid img-style mt-5" style="height: 400px; background-size: cover; background-position: center; background-repeat: no-repeat;"
+            :style="{backgroundImage: `url(${product.imageUrl})`}">
+          </div>
+          <!-- <img :src="product.imageUrl" class="img-fluid" alt="產品圖片" /> -->
           <!-- <div class="img-list">
             <span class="img-hover">
               <img class="img" />
@@ -34,8 +37,8 @@
           </div>
           <div class="pt-2">
             <select name="qty" id="qty" class="form-control" v-model="qty">
-              <option v-for="num in 5" :value="num" :key="num">
-                {{ num }}
+              <option v-for="qty in 5" :value="qty" :key="qty">
+                {{ qty }}
               </option>
             </select>
           </div>
@@ -44,194 +47,50 @@
               <button class="btn btn-lg btn-danger w-100" @click="addToCart(product.id, qty)">ADD TO CART</button>
             </div>
           </div>
-          <div class="py-3 mt-3 summary-area">
-            <div id="summaryDiv">
-              <div class="d-flex">
-                <span class="summary-title mr-auto">The features</span>
-                <div
-                  class="summary-arrow" :class="{'summary-arrowTurn': active}" @click="clickHandler(2)">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="feather feather-chevron-down"
-                  >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
+          <div class="sidebar">
+            <ul class="category-root">
+              <li>
+                <div class="dropdown__header" @click="toggleDropdown($event)">
+                  <span>The features</span>
+                  <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  <i class="fa fa-angle-up" aria-hidden="true"></i>
                 </div>
-              </div>
-              <div class="pt-3 summary-contentTurn" data-one=2>
-                <p>
-                  <small>
-                    - Authentic and detailed fully realized likeness of Batman/ Bruce Wayne in The Dark Knight Rises
-                    <br />- One (1) newly developed Batman helmeted head sculpt with separate rolling eyeballs features and four (4) interchangeable lower part of faces capturing his classic facial expressions
-                    <br />- One (1) newly developed Batman helmeted head sculpt with LED light up function on eyes and interchangeable faces techniques design (battery operated)
-                    <br />- One (1) newly developed head sculpt of Christian Bale as Bruce Wayne in the movie with accurate facial expression, detailed hair, wrinkles and skin texture
-                    <br />- Approximately 32 cm tall
-                  </small>
-                </p>
-              </div>
-            </div>
-            <div>
-              <div class="d-flex">
-                <span class="summary-title mr-auto">The features</span>
-                <div
-                  class="summary-arrow" :class="{'summary-arrowTurn': active}" @click="clickHandler(1)">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="feather feather-chevron-down">
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
+                <ul class="dropdown__content category-inner">
+                  <li>
+                    <div class="pt-3">
+                      <small>
+                        - Authentic and detailed fully realized likeness of Batman/ Bruce Wayne in The Dark Knight Rises
+                        <br />- One (1) newly developed Batman helmeted head sculpt with separate rolling eyeballs features and four (4) interchangeable lower part of faces capturing his classic facial expressions
+                        <br />- One (1) newly developed Batman helmeted head sculpt with LED light up function on eyes and interchangeable faces techniques design (battery operated)
+                        <br />- One (1) newly developed head sculpt of Christian Bale as Bruce Wayne in the movie with accurate facial expression, detailed hair, wrinkles and skin texture
+                        <br />- Approximately 32 cm tall
+                      </small>
+                    </div>
+                  </li>
+                </ul>
+                <div class="dropdown__header" @click="toggleDropdown($event)">
+                  <span>Warning</span>
+                  <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  <i class="fa fa-angle-up" aria-hidden="true"></i>
                 </div>
-              </div>
-              <div class="pt-3 summary-contentTurn" data-one=1>
-                <p>
-                  <small>
-                    - Authentic and detailed fully realized likeness of Batman/ Bruce Wayne in The Dark Knight Rises
-                    <br />- One (1) newly developed Batman helmeted head sculpt with separate rolling eyeballs features and four (4) interchangeable lower part of faces capturing his classic facial expressions
-                    <br />- One (1) newly developed Batman helmeted head sculpt with LED light up function on eyes and interchangeable faces techniques design (battery operated)
-                    <br />- One (1) newly developed head sculpt of Christian Bale as Bruce Wayne in the movie with accurate facial expression, detailed hair, wrinkles and skin texture
-                    <br />- Approximately 32 cm tall
-                  </small>
-                </p>
-              </div>
-            </div>
+                <ul class="dropdown__content category-inner">
+                  <li>
+                    <div class="pt-3">
+                      <small>
+                        - Authentic and detailed fully realized likeness of Batman/ Bruce Wayne in The Dark Knight Rises
+                        <br />- One (1) newly developed Batman helmeted head sculpt with separate rolling eyeballs features and four (4) interchangeable lower part of faces capturing his classic facial expressions
+                        <br />- One (1) newly developed Batman helmeted head sculpt with LED light up function on eyes and interchangeable faces techniques design (battery operated)
+                        <br />- One (1) newly developed head sculpt of Christian Bale as Bruce Wayne in the movie with accurate facial expression, detailed hair, wrinkles and skin texture
+                        <br />- Approximately 32 cm tall
+                      </small>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-
-      <!-- <div class="col-md-7">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="#">Home</a>
-            </li>
-            <li class="breadcrumb-item">
-              <a href="#">Library</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">batman</li>
-          </ol>
-        </nav>
-        <div class="content-watch">
-          <div class="img"></div>
-          <div class="img-list">
-            <span class="img-hover">
-              <img class="img" />
-            </span>
-            <span class="img-hover">
-              <img class="img" />
-            </span>
-            <span class="img-hover">
-              <img class="img" />
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-5">
-        <div class="parameter">
-          <h6>THE DARK KNIGHT RISES</h6>
-          <h1 class="display-4">BATMAN</h1>
-          <p>PRODUCT CODE: DX19</p>
-          <hr />
-          <div class="detail py-3">
-            <h5 class="mb-3">“A hero can be anyone.” - Batman</h5>
-            <p>Standing as pop culture icon, Batman is always one of the most recognizable super heroes in the DC universe. Recreated in accurate proportions, Hot Toys is excited to present the true-to-movie creation from our proud DX Series, the 1/6th scale Batman collectible figure inspired by The Dark Knight Rises.</p>
-          </div>
-          <hr />
-          <div class="price">
-            <div class="text-right mr-3">
-              <span class="h4 mr-2">$</span>
-              <h2 class="d-inline">350</h2>
-            </div>
-          </div>
-          <div class="mt-3 px-3">
-            <div class="row">
-              <button class="btn btn-lg btn-danger w-100">ADD TO CART</button>
-            </div>
-          </div>
-          <div class="py-3 mt-3 summary-area">
-            <div id="summaryDiv">
-              <div class="d-flex">
-                <span class="summary-title mr-auto">The features</span>
-                <div
-                  class="summary-arrow" :class="{'summary-arrowTurn': active}" @click="clickHandler(2)">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="feather feather-chevron-down"
-                  >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </div>
-              </div>
-              <div class="pt-3 summary-contentTurn" data-one=2>
-                <p>
-                  <small>
-                    - Authentic and detailed fully realized likeness of Batman/ Bruce Wayne in The Dark Knight Rises
-                    <br />- One (1) newly developed Batman helmeted head sculpt with separate rolling eyeballs features and four (4) interchangeable lower part of faces capturing his classic facial expressions
-                    <br />- One (1) newly developed Batman helmeted head sculpt with LED light up function on eyes and interchangeable faces techniques design (battery operated)
-                    <br />- One (1) newly developed head sculpt of Christian Bale as Bruce Wayne in the movie with accurate facial expression, detailed hair, wrinkles and skin texture
-                    <br />- Approximately 32 cm tall
-                  </small>
-                </p>
-              </div>
-            </div>
-            <div>
-              <div class="d-flex">
-                <span class="summary-title mr-auto">The features</span>
-                <div
-                  class="summary-arrow" :class="{'summary-arrowTurn': active}" @click="clickHandler(1)">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="feather feather-chevron-down">
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </div>
-              </div>
-              <div class="pt-3 summary-contentTurn" data-one=1>
-                <p>
-                  <small>
-                    - Authentic and detailed fully realized likeness of Batman/ Bruce Wayne in The Dark Knight Rises
-                    <br />- One (1) newly developed Batman helmeted head sculpt with separate rolling eyeballs features and four (4) interchangeable lower part of faces capturing his classic facial expressions
-                    <br />- One (1) newly developed Batman helmeted head sculpt with LED light up function on eyes and interchangeable faces techniques design (battery operated)
-                    <br />- One (1) newly developed head sculpt of Christian Bale as Bruce Wayne in the movie with accurate facial expression, detailed hair, wrinkles and skin texture
-                    <br />- Approximately 32 cm tall
-                  </small>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -250,6 +109,9 @@ export default {
     }
   },
   methods: {
+    toggleDropdown (event) {
+      event.currentTarget.classList.toggle('is-active')
+    },
     clickHandler (val) {
       const num = document.querySelectorAll('[data-one]')
       num.forEach((item) => {
@@ -289,10 +151,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .main {
   margin: auto;
-  padding: 50px 20px;
+  padding: 0px 20px;
   // margin-bottom: 50px;
   background: #ebebeb;
 }
@@ -344,31 +206,60 @@ hr {
 .parameter p {
   color: #555;
 }
-.summary-area {
-  position: relative;
-  width: 100%;
-  .summary-arrow {
-    opacity: 0.4;
-    cursor: pointer;
-    transform: translate(0, 0) rotate(180deg);
-    transition: all 0.5s ease;
-    &:hover {
-      opacity: 1;
+.sidebar {
+  overflow: hidden;
+  .category-root {
+    list-style: none;
+    padding: 0;
+    div {
+      padding: 8px 10px;
+    }
+    .category-inner{
+      list-style: none;
+      padding: 0;
+      li{
+        padding: 4px 12px;
+      }
     }
   }
-  .summary-arrowTurn {
-    transform: translate(0, 0) rotate(0deg);
+}
+.dropdown__header {
+  font-weight: 600;
+  position: relative;
+  i.fa {
+    position: absolute;
+    right: 10px;
+    transform: translateY(30%);
+    transition: opacity .3s;
+    &.fa-angle-up {
+      opacity: 0;
+    }
+  }
+  &.is-active {
+    i.fa {
+      &.fa-angle-up {
+        opacity: 1;
+      }
+      &.fa-angle-down {
+        opacity: 0;
+      }
+    }
+    + .dropdown__content {
+      height: auto;
+      opacity: 1;
+      display: block;
+    }
   }
 }
-.summary-contentTurn {
+.dropdown__content {
+  height: 0;
   opacity: 0;
-  z-index: -10;
-  position: absolute;
+  display: none;
 }
-.summary-content {
-  opacity: 1;
-  transition: opacity 0.5s ease;
-  z-index: 10;
-  position: relative;
+
+@media screen and (min-width:768px) and (max-width:992px){
+  .img-style{
+    height: 300px !important;
+  }
 }
 </style>

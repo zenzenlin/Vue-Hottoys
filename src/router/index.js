@@ -38,15 +38,15 @@ const routes = [
         component: () => import('../views/Checkout.vue')
       },
       {
-        name: 'shipping',
-        path: '/shipping',
-        component: () => import('../views/Shipping.vue')
+        name: 'payCheck',
+        path: '/paycheck/:orderId',
+        component: () => import('../views/PayCheck.vue')
       },
-      {
-        name: 'payment',
-        path: '/payment',
-        component: () => import('../views/Payment.vue')
-      },
+      // {
+      //   name: 'payment',
+      //   path: '/payment',
+      //   component: () => import('../views/Payment.vue')
+      // },
       {
         name: 'finishpayment',
         path: '/finishpayment',
