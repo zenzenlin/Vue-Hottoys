@@ -91,5 +91,19 @@ export default new Vuex.Store({
     PRODCATEGORY (state, payload) {
       state.prodCategory = payload
     }
+  },
+  getters: {
+    products (state) {
+      return state.products
+    },
+    prodCategory (state) {
+      return state.prodCategory
+    },
+    qty (state) {
+      return state.qty
+    },
+    pagination (state) {
+      return state.pagination
+    }
   }
 })

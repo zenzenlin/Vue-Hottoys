@@ -128,6 +128,7 @@
 
 <script>
 import pagination from '@/components/pagination'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'list',
@@ -177,18 +178,7 @@ export default {
       })
       // }
     },
-    pagination () {
-      return this.$store.state.pagination
-    },
-    products () {
-      return this.$store.state.products
-    },
-    qty () {
-      return this.$store.state.qty
-    },
-    prodCategory () {
-      return this.$store.state.prodCategory
-    }
+    ...mapGetters(['pagination', 'products', 'qty', 'prodCategory'])
   },
   created () {
     this.$store.dispatch('getProducts')
