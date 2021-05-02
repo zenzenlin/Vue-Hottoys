@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import DashNavbar from '../components/DashNavbar'
-import Sidebar from '../components/Sidebar'
-import Alert from '../components/AlertMessage'
+import DashNavbar from '@/components/DashNavbar'
+import Sidebar from '@/components/Sidebar'
+import Alert from '@/components/AlertMessage'
 
 export default {
   components: {

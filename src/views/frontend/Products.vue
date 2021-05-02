@@ -1,6 +1,5 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
     <main>
       <div class="container">
         <div class="banner-pic d-flex">
@@ -47,19 +46,6 @@
                     </li>
                   </ul>
                 </li>
-                <!-- <li>
-                  <div class="d-flex justify-content-between align-items-center category-font">DC
-                    <span class="arrow"></span>
-                  </div>
-                  <ul class="category-inner">
-                    <li @click.prevent="changeTab('batman')" :class="{'category-inner-active':prodCategory==='batman'}">
-                      <a href="#">Batman</a>
-                    </li>
-                    <li @click.prevent="changeTab('wonderwoman')" :class="{'category-inner-active':prodCategory==='wonderwoman'}">
-                      <a href="#">Wonderwoman</a>
-                    </li>
-                  </ul>
-                </li> -->
                 <li>
                   <div class="dropdown__header" @click="toggleDropdown($event)">
                     <span>DC</span>
@@ -90,9 +76,6 @@
                     </svg>
                   </span>
                   <div class="hidden">
-                    <!-- <a href="" :class="{'inner-btn':currentSort==='MostPopular'}" @click.prevent="getProducts">
-                      <span class="">Most Popular</span>
-                    </a> -->
                     <a href="" :class="{'inner-btn':currentSort==='Highest'}" @click.prevent="sortTable('Highest')">
                       <span class="">Price (Highest First)</span>
                     </a>
@@ -113,7 +96,6 @@
                     <h5 class="card-title">
                       <a href="#" class="text-dark" @click="$router.push(`/product/${item.id}`)">{{ item.title }} </a>
                     </h5>
-                    <!-- <p class="card-text">{{ item.content }}</p> -->
                     <div class="d-flex justify-content-between align-items-baseline">
                       <div class="h5" v-if="!item.price">{{ item.origin_price }}</div>
                       <del class="h6" v-if="item.price">$ {{ item.origin_price }}</del>
@@ -145,7 +127,7 @@
 </template>
 
 <script>
-import pagination from '../components/pagination'
+import pagination from '@/components/pagination'
 
 export default {
   name: 'list',
@@ -153,48 +135,34 @@ export default {
     pagination
   },
   data () {
-    return {
-      products: [],
-      product: {},
-      coupon_code: '',
-      prodCategory: '',
-      currentPage: 0,
-      pagination: {},
-      isLoading: false,
-      currentSort: '',
-      qty: 1
-    }
+    return {}
   },
   methods: {
-    getProducts (page = 1) {
-      const vm = this
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`
-      vm.isLoading = true
-      this.$http.get(api).then(response => {
-        console.log('getProducts', response.data)
-        vm.products = response.data.products
-        vm.isLoading = false
-        vm.pagination = response.data.pagination
-      })
-    },
-    changeTab (prodCategory) {
-      const vm = this
-      vm.prodCategory = prodCategory
-    },
     toggleDropdown (event) {
       event.currentTarget.classList.toggle('is-active')
     },
     sortTable (currentSort) {
-      const vm = this
-      vm.currentSort = currentSort
-      if (currentSort === 'Lowest') {
-        this.products.sort((a, b) => a.price > b.price ? 1 : -1)
-      } else {
-        this.products.sort((a, b) => a.price < b.price ? 1 : -1)
-      }
+      let newSort = []
+      const newProducts = this.$store.state.products
+      newSort = newProducts.sort((a, b) => {
+        const aPrice = a.price ? a.price : a.origin_price
+        const bPrice = b.price ? b.price : b.origin_price
+        if (currentSort === 'Highest') {
+          return bPrice - aPrice
+        } else {
+          return aPrice - bPrice
+        }
+      })
+      return newSort
+    },
+    getProducts (page = 1) {
+      this.$store.dispatch('getProducts', page)
     },
     addToCart (id, qty) {
       this.$store.dispatch('addToCart', { id, qty })
+    },
+    changeTab (prodCategory) {
+      this.$store.dispatch('changeTab', prodCategory)
     }
   },
   computed: {
@@ -208,22 +176,33 @@ export default {
         return vm.prodCategory === '' ? item : item.category === vm.prodCategory || item.category2 === vm.prodCategory
       })
       // }
+    },
+    pagination () {
+      return this.$store.state.pagination
+    },
+    products () {
+      return this.$store.state.products
+    },
+    qty () {
+      return this.$store.state.qty
+    },
+    prodCategory () {
+      return this.$store.state.prodCategory
     }
   },
   created () {
-    this.getProducts()
+    this.$store.dispatch('getProducts')
   }
 }
 </script>
 
 <style lang="scss">
 .banner-pic {
-  background-image: url(../assets/images/banner.jpeg);
+  background-image: url(../../assets/images/banner.jpeg);
   height: 150px;
   width: 100%;
   background-position: center center;
   font-family: monospace;
-  // background-repeat: no-repeat;
 }
 .sidebar {
   border-radius: 8px;
@@ -256,7 +235,6 @@ export default {
     }
   }
 }
-
 .dropdown__header {
   font-weight: 600;
   position: relative;
@@ -291,7 +269,6 @@ export default {
   transition: opacity .3s;
   display: block;
 }
-
 .sortbar{
   height: 38px;
   margin: 0 0 24px 0;
@@ -338,7 +315,6 @@ export default {
     }
   }
 }
-
 .item-list{
   display: inline-block;
   width: 100%;
@@ -367,7 +343,7 @@ export default {
         background-size: 150%;
         background-position: center center;
         background-repeat: no-repeat;
-        background-image: url(../assets/images/batman.jpg);
+        background-image: url(../../assets/images/batman.jpg);
       }
     }
     .item-name{

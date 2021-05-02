@@ -10,97 +10,92 @@ const routes = [
   },
   {
     path: '/',
-    component: () => import('../views/Index.vue'),
+    component: () => import('../views/frontend/Index.vue'),
     children: [
       {
         name: 'index',
         path: '/',
-        component: () => import('../views/NewMain.vue')
+        component: () => import('../views/frontend/Main.vue')
       },
       {
-        name: 'list',
+        name: 'Products',
         path: '/products',
-        component: () => import('../views/List.vue')
+        component: () => import('../views/frontend/Products.vue')
+      },
+      {
+        name: 'Features',
+        path: '/features',
+        component: () => import('../views/frontend/Features.vue')
       },
       {
         name: 'singleproduct',
         path: '/product/:productId',
-        component: () => import('../views/SingleProduct.vue')
-      },
-      {
-        name: 'cart',
-        path: '/cart',
-        component: () => import('../views/Cart.vue')
+        component: () => import('../views/frontend/SingleProduct.vue')
       },
       {
         name: 'checkout',
         path: '/checkout',
-        component: () => import('../views/Checkout.vue')
+        component: () => import('../views/frontend/Checkout.vue')
       },
       {
         name: 'payCheck',
         path: '/paycheck/:orderId',
-        component: () => import('../views/PayCheck.vue')
+        component: () => import('../views/frontend/PayCheck.vue')
       },
-      // {
-      //   name: 'payment',
-      //   path: '/payment',
-      //   component: () => import('../views/Payment.vue')
-      // },
       {
         name: 'finishpayment',
         path: '/finishpayment',
-        component: () => import('../views/FinishPayment.vue')
+        component: () => import('../views/frontend/FinishPayment.vue')
       }
     ]
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue')
+    component: () => import('../views/frontend/Login.vue')
   },
   {
     path: '/admin',
     name: 'Dashboard',
-    component: () => import('../views/Dashboard.vue'),
+    component: () => import('../views/backend/Dashboard.vue'),
     children: [
       {
         path: 'product',
         name: 'Product',
-        component: () => import('../views/Product.vue'),
+        component: () => import('../views/backend/Product.vue'),
         meta: { requiresAuth: true }
       },
       {
         path: 'productlist',
         name: 'ProductList',
-        component: () => import('../views/ProductList.vue'),
+        component: () => import('../views/backend/ProductList.vue'),
         meta: { requiresAuth: true }
       },
       {
         path: 'coupon',
         name: 'Coupon',
-        component: () => import('../views/Coupon.vue'),
+        component: () => import('../views/backend/Coupon.vue'),
         meta: { requiresAuth: true }
       }
     ]
-  },
-  {
-    path: '/',
-    name: 'Dashboard',
-    component: () => import('../views/Dashboard.vue'),
-    children: [
-      {
-        path: 'customorder',
-        name: 'CustomOrder',
-        component: () => import('../views/CustomOrder.vue')
-      },
-      {
-        path: 'customcheckout/:orderId',
-        name: 'CustomCheckout',
-        component: () => import('../views/CustomCheckout.vue')
-      }
-    ]
   }
+  // {
+  //   path: '/',
+  //   name: 'Dashboard',
+  //   component: () => import('../views/backend/Dashboard.vue'),
+  //   children: [
+  //     {
+  //       path: 'customorder',
+  //       name: 'CustomOrder',
+  //       component: () => import('../views/backend/CustomOrder.vue')
+  //     },
+  //     {
+  //       path: 'customcheckout/:orderId',
+  //       name: 'CustomCheckout',
+  //       component: () => import('../views/backend/CustomCheckout.vue')
+  //     }
+  //   ]
+  // }
 ]
 
 const router = new VueRouter({

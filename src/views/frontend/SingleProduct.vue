@@ -2,22 +2,10 @@
   <div class="container main">
     <div class="row">
       <div class="col-md-7">
-        <div class="content-watch">
-          <div class="img-fluid img-style mt-5" style="height: 400px; background-size: cover; background-position: center; background-repeat: no-repeat;"
+        <div class="mt-5">
+          <div style="height: 400px; background-size: cover; background-position: center; background-repeat: no-repeat;"
             :style="{backgroundImage: `url(${product.imageUrl})`}">
           </div>
-          <!-- <img :src="product.imageUrl" class="img-fluid" alt="產品圖片" /> -->
-          <!-- <div class="img-list">
-            <span class="img-hover">
-              <img class="img" />
-            </span>
-            <span class="img-hover">
-              <img class="img" />
-            </span>
-            <span class="img-hover">
-              <img class="img" />
-            </span>
-          </div> -->
         </div>
       </div>
       <div class="col-md-5">
@@ -30,7 +18,7 @@
           </div>
           <hr />
           <div class="price d-flex justify-content-between align-items-baseline my-3">
-            <span style=" text-decoration: line-through">$ {{ product.origin_price }}</span>
+            <span style="text-decoration: line-through">$ {{ product.origin_price }}</span>
             <div class="text-right mr-3">
               <h2 class="d-inline text-danger"><span class="h4 mr-2">$</span>{{ product.price }}</h2>
             </div>
@@ -58,18 +46,17 @@
                 <ul class="dropdown__content category-inner">
                   <li>
                     <div class="pt-3">
-                      <small>
-                        - Authentic and detailed fully realized likeness of Batman/ Bruce Wayne in The Dark Knight Rises
-                        <br />- One (1) newly developed Batman helmeted head sculpt with separate rolling eyeballs features and four (4) interchangeable lower part of faces capturing his classic facial expressions
-                        <br />- One (1) newly developed Batman helmeted head sculpt with LED light up function on eyes and interchangeable faces techniques design (battery operated)
-                        <br />- One (1) newly developed head sculpt of Christian Bale as Bruce Wayne in the movie with accurate facial expression, detailed hair, wrinkles and skin texture
+                      <small>Artists:
+                        <br />- Head Sculpted by Hwan Kim
+                        <br />- Head Painted by JC. Hong
+                        <br />- Head Art Directed by Yulli
                         <br />- Approximately 32 cm tall
                       </small>
                     </div>
                   </li>
                 </ul>
                 <div class="dropdown__header" @click="toggleDropdown($event)">
-                  <span>Warning</span>
+                  <span>Shipping & Delivery</span>
                   <i class="fa fa-angle-down" aria-hidden="true"></i>
                   <i class="fa fa-angle-up" aria-hidden="true"></i>
                 </div>
@@ -77,11 +64,7 @@
                   <li>
                     <div class="pt-3">
                       <small>
-                        - Authentic and detailed fully realized likeness of Batman/ Bruce Wayne in The Dark Knight Rises
-                        <br />- One (1) newly developed Batman helmeted head sculpt with separate rolling eyeballs features and four (4) interchangeable lower part of faces capturing his classic facial expressions
-                        <br />- One (1) newly developed Batman helmeted head sculpt with LED light up function on eyes and interchangeable faces techniques design (battery operated)
-                        <br />- One (1) newly developed head sculpt of Christian Bale as Bruce Wayne in the movie with accurate facial expression, detailed hair, wrinkles and skin texture
-                        <br />- Approximately 32 cm tall
+                        <p>Most items ordered via Standard Delivery will arrive within 5-7 business days, personalized items within 1-2 weeks. Exceptions include items shipped from locations other than our main warehouse. Express Delivery is available for an extra charge</p>
                       </small>
                     </div>
                   </li>
@@ -112,19 +95,6 @@ export default {
     toggleDropdown (event) {
       event.currentTarget.classList.toggle('is-active')
     },
-    clickHandler (val) {
-      const num = document.querySelectorAll('[data-one]')
-      num.forEach((item) => {
-        const x = parseInt(item.getAttribute('data-one'))
-        if (val === x && this.isShow) {
-          this.isShow = false
-          item.classList.add('summary-content')
-        } else if (val === x && !this.isShow) {
-          this.isShow = true
-          item.classList.remove('summary-content')
-        }
-      })
-    },
     getProduct (productId) {
       this.$store.dispatch('getProduct', productId)
     },
@@ -144,9 +114,7 @@ export default {
     }
   },
   created () {
-    // this.productId = this.$route.params.productId
     this.getProduct(this.$route.params.productId)
-    // this.getCart()
   }
 }
 </script>
@@ -155,56 +123,26 @@ export default {
 .main {
   margin: auto;
   padding: 0px 20px;
-  // margin-bottom: 50px;
   background: #ebebeb;
 }
 hr {
   background: #e1e1e1;
 }
-.img {
-  background-image: url(../assets/images/batman.jpg);
-  // width: 100%;
-  height: 600px;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-.img-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 17px;
-  margin-bottom: 17px;
-  .img-hover {
-    width: 150px;
-    height: 150px;
-    border-radius: 8px;
-    display: inline-block;
-    border: 2px solid #fff;
-    margin: 0 2px 2px 0;
-    cursor: pointer;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-}
 .parameter {
   padding-top: 70px;
-}
-.parameter h6 {
+  h6 {
   font-size: 2em;
   font-weight: 400;
   letter-spacing: 3px;
-}
-.parameter h1 {
+  }
+  h1 {
   font-weight: 600;
   letter-spacing: 2px;
   margin-top: -20px;
-}
-.parameter p {
+  }
+  p {
   color: #555;
+  }
 }
 .sidebar {
   overflow: hidden;

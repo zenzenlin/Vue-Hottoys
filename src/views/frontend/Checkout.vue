@@ -3,54 +3,10 @@
     <div class="progressbar-container">
       <ul class="progressbar">
         <li class="active">INFO</li>
-        <li>SHIP</li>
+        <li>CONFIRM</li>
         <li>PAY</li>
       </ul>
     </div>
-    <!-- <form class="form-container">
-      <div class="form-row">
-        <div class="form-group form-floating col-md-6">
-          <label for="inputFirstName4">Name</label>
-          <input type="text" class="form-control" placeholder="First name" id="inputFirstName4" required="" autofocus="">
-        </div>
-        <div class="form-group form-floating col-md-6 pt-2">
-          <label for="inputLastName4"></label>
-          <input type="text" class="form-control" placeholder="Last name" id="inputLastName4" required="">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputAddress">Address</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="Address">
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="inputCity">City</label>
-          <input type="text" class="form-control" id="inputCity">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="inputState">State</label>
-          <select id="inputState" class="form-control">
-            <option selected>Choose...</option>
-            <option>...</option>
-          </select>
-        </div>
-        <div class="form-group col-md-4">
-          <label for="inputPhone">Phone</label>
-          <input type="number" class="form-control" id="inputPhone">
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck">
-          <label class="form-check-label" for="gridCheck">
-            Check me out
-          </label>
-        </div>
-      </div>
-      <router-link to="/shipping">
-        <button type="submit" class="btn btn-lg btn-info">Continue to shipping</button>
-      </router-link>
-    </form> -->
     <div class="row justify-content-center mt-5">
       <div class="col-md-4 order-md-2 mb-4">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
