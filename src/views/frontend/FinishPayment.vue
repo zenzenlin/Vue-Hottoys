@@ -3,12 +3,12 @@
     <div class="progressbar-container mt-5">
       <ul class="progressbar">
         <li class="finished">Information</li>
-        <li class="finished">Shipping</li>
+        <li class="finished">Confirm</li>
         <li class="finished">Payment</li>
       </ul>
     </div>
     <div>
-      <h1 class="text-center py-4">Payment sent</h1>
+      <h1 class="text-center py-4">Payment Successful</h1>
     </div>
     <div class="m-auto text-center">
       <img src="@/assets/images/check.png" style="height:200px" alt="">
@@ -16,7 +16,7 @@
     </div>
     <div class="text-center pt-4">
       <router-link to="/index">
-        <button class="btn btn-lg btn-info">Continue to shopping</button>
+        <button class="btn btn-lg btn-info">Continue Shopping</button>
       </router-link>
     </div>
   </div>

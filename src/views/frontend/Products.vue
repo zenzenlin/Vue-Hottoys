@@ -12,7 +12,7 @@
               <ul class="category-root">
                 <li>
                   <div class="dropdown__header" @click="toggleDropdown($event)">
-                    <span>強打活動</span>
+                    <span>POPULAR</span>
                     <i class="fa fa-angle-down" aria-hidden="true"></i>
                     <i class="fa fa-angle-up" aria-hidden="true"></i>
                   </div>
@@ -24,7 +24,7 @@
                 </li>
                 <li>
                   <div class="dropdown__header" @click="toggleDropdown($event)">
-                    <span>New in</span>
+                    <span>New</span>
                     <i class="fa fa-angle-down" aria-hidden="true"></i>
                     <i class="fa fa-angle-up" aria-hidden="true"></i>
                   </div>
@@ -109,10 +109,10 @@
                   </div>
                   <div class="card-footer d-flex">
                     <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.push(`/product/${item.id}`)">
-                      查看更多
+                      DETAIL
                     </button>
                     <button type="button" class="btn btn-outline-danger btn-sm ml-auto" @click="addToCart(item.id, qty)">
-                      立即購買
+                      BUY IT NOW
                     </button>
                   </div>
                 </div>

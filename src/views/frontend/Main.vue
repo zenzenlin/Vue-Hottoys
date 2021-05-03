@@ -79,7 +79,7 @@
         </div>
       </div>
       <hr class="featurette-divider">
-      <div class="row featurette " style="margin-bottom:80px">
+      <div class="row featurette">
         <div class="col-md-7">
           <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
           <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
@@ -89,14 +89,64 @@
         </div>
       </div>
       <!-- /END THE FEATURETTES -->
+      <section>
+        <div class="text-center my-5">
+          <h2 class="d-inline featurette-heading hot-style">WHAT'S HOT!<span></span></h2>
+        </div>
+        <div class="row mt-4 py-3">
+          <div class="col-lg-4 col-md-4 mb-4" v-for="item in filterData" :key="item.id">
+            <div class="shadow rounded-lg">
+              <div class="mdSize rounded-top-lg" style="border-radius: 5px 5px 0 0; height: 200px; background-size: cover; background-position: center; background-repeat: no-repeat; cursor: pointer"
+                :style="{backgroundImage: `url(${item.imageUrl})`}" @click="$router.push(`/product/${item.id}`)">
+              </div>
+              <div class="">
+                <h5 class="p-3">
+                  <a href="#" class="text-dark" @click="$router.push(`/product/${item.id}`)">{{ item.title }} </a>
+                </h5>
+                <div class="d-flex align-items-baseline justify-content-center">
+                  <del class="text-muted" v-if="item.price">$ {{ item.origin_price }}</del>
+                  <div class="h4 text-danger" v-if="item.price">$ {{ item.price }}</div>
+                </div>
+              </div>
+              <div class="text-center pb-3">
+                <button type="button" class="btn btn-info" @click="addToCart(item.id, qty)">
+                  BUY IT NOW
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {}
+  },
+  methods: {
+    getProducts () {
+      this.$store.dispatch('getProducts')
+    },
+    addToCart (id, qty) {
+      this.$store.dispatch('addToCart', { id, qty })
+    }
+  },
+  computed: {
+    filterData () {
+      const vm = this
+      return vm.products.filter((item) => {
+        return item.category === 'marvel'
+      })
+    },
+    ...mapGetters(['products'])
+  },
+  created () {
+    this.$store.dispatch('getProducts')
   }
 }
 </script>
@@ -210,6 +260,32 @@ body {
 @media (min-width: 62em) {
   .featurette-heading {
     margin-top: 7rem;
+  }
+}
+
+.hot-style {
+  position: relative;
+  letter-spacing: 10px;
+  font-size: 60px;
+  span::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    left: 0;
+    bottom: 10px;
+    height: 10px;
+    z-index: -1;
+    background-color: rgb(140, 242, 237);
+  }
+}
+
+@media (max-width:768px){
+  .mdSize{
+    height: 330px !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }
 </style>

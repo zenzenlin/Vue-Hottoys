@@ -36,7 +36,7 @@
     </section>
     <section class="text-center mb-5">
       <h2>START YOUR JOURNEY</h2>
-      <a href="" class="btn btn-danger btn-lg">SHOP NOW</a>
+      <router-link class="btn btn-danger btn-lg" to="/products">SHOP NOW</router-link>
     </section>
   </div>
 </template>
