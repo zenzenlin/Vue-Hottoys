@@ -9,7 +9,7 @@
         <h3>Established in 2000</h3>
         <p>Hot Toys Limited is a high-end collectible brand, devoted to designing, developing and producing high quality and highly detailed collectibles with authentic likeness. Initially started the business from producing 1/6th scale military action figures, Hot Toys has since expanded its product scope to specialize in 1/6th scale collectible figures from popular movies, video games, comics as well as world renowned celebrities.</p>
         <div class="content-img">
-          <img src="https://2.bp.blogspot.com/-2RUhApbTCfc/VySUZ5HB-TI/AAAAAAAA3uk/C47qLs38FPg9GwELvAXhck6O7JW3MwWSgCLcB/s1600/pop1.jpg" style="width:400px" alt="">
+          <img src="https://2.bp.blogspot.com/-2RUhApbTCfc/VySUZ5HB-TI/AAAAAAAA3uk/C47qLs38FPg9GwELvAXhck6O7JW3MwWSgCLcB/s1600/pop1.jpg" width="100%" alt="">
         </div>
       </div>
     </section>
