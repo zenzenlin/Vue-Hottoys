@@ -12,7 +12,8 @@ export default new Vuex.Store({
     products: [],
     prodCategory: '',
     pagination: {},
-    qty: 1
+    qty: 1,
+    currentSort: ''
   },
   actions: {
     updateLoading (context, status) {
@@ -104,6 +105,9 @@ export default new Vuex.Store({
     },
     pagination (state) {
       return state.pagination
+    },
+    currentSort (state) {
+      return state.currentSort
     }
   }
 })

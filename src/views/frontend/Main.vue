@@ -5,7 +5,7 @@
         <div class="container">
           <div class="py-3">
             <h1 class="font-family">Hot toys.</h1>
-            <h5 class="text-muted p-3">Find the best selection of Hot Toys Wonder Woman Sixth Scale Figures at Sideshow. Based on the DC Comics superhero, the Hot Toys Wonder Woman figures present film accurate collectibles featuring the stunning likeness of Gal Gadot. Check out our full line of Wonder Woman Figures.</h5>
+            <h5 class="text-muted p-3">Hot Toys is the leader in the 1/6th collectible industry and has led the quality of collectible figures development to another climax over the past years. Moreover, Hot Toys has obtained the patent for its innovation of Parallel Eyeball Rolling System (PERS) and Interchangeable Faces Techniques (IFT) for its DX series, which has further increased the likeness of the collectible figures.</h5>
           </div>
         </div>
       </div>
@@ -61,8 +61,9 @@
       <hr class="featurette-divider">
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-          <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+          <h2 class="featurette-heading">Iron Man <span class="text-muted"> - Tony Stark</span></h2>
+          <p class="lead">"My armor, it was never a distraction or a hobby, it was a cocoon. And now, I'm a changed man. You can take away my house, all my tricks and toys. But one thing you can't take away... I am Iron Man."
+―Tony Stark</p>
         </div>
         <div class="col-md-5">
           <img class="main-img-style img1" alt="">
@@ -71,8 +72,8 @@
       <hr class="featurette-divider">
       <div class="row featurette">
         <div class="col-md-7 order-md-2">
-          <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
-          <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+          <h2 class="featurette-heading">Batman <span class="text-muted"> -  Bruce Wayne</span></h2>
+          <p class="lead">"It's not who I am underneath, but it's what I do that defines me." -Bruce Wayne</p>
         </div>
         <div class="col-md-5 order-md-1">
           <img class="main-img-style img2" alt="">
@@ -81,8 +82,8 @@
       <hr class="featurette-divider">
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-          <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
+          <h2 class="featurette-heading">Wonder Woman <span class="text-muted"> - Diana Prince</span></h2>
+          <p class="lead">“It’s Not About What You Deserve; It’s About What You Believe. And I Believe In Love.” -Diana Prince</p>
         </div>
         <div class="col-md-5">
           <img class="main-img-style img3" alt="">
@@ -91,7 +92,7 @@
       <!-- /END THE FEATURETTES -->
       <section>
         <div class="text-center my-5">
-          <h2 class="d-inline featurette-heading hot-style">WHAT'S HOT!<span></span></h2>
+          <h2 class="d-inline featurette-heading hot-style">WHAT TOY'S HOT!<span></span></h2>
         </div>
         <div class="row mt-4 py-3">
           <div class="col-lg-4 col-md-4 mb-4" v-for="item in filterData" :key="item.id">

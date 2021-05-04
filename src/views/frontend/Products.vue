@@ -61,6 +61,11 @@
                     </li>
                   </ul>
                 </li>
+                <li>
+                  <div class="dropdown__header category-inner">
+                    <li @click="changeTab('')">All Products</li>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -140,6 +145,7 @@ export default {
   },
   methods: {
     toggleDropdown (event) {
+      console.log(event.currentTarget.classList)
       event.currentTarget.classList.toggle('is-active')
     },
     sortTable (currentSort) {
@@ -174,11 +180,15 @@ export default {
       // } else {
       // console.log(this.product)
       return vm.products.filter((item) => {
-        return vm.prodCategory === '' ? item : item.category === vm.prodCategory || item.category2 === vm.prodCategory
+        if (vm.prodCategory === '') {
+          return item
+        } else {
+          return vm.prodCategory === '' ? item : item.category === vm.prodCategory || item.category2 === vm.prodCategory
+        }
       })
       // }
     },
-    ...mapGetters(['pagination', 'products', 'qty', 'prodCategory'])
+    ...mapGetters(['pagination', 'products', 'qty', 'prodCategory', 'currentSort'])
   },
   created () {
     this.$store.dispatch('getProducts')
@@ -186,7 +196,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .banner-pic {
   background-image: url(../../assets/images/banner.jpeg);
   height: 150px;
