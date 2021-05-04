@@ -7,7 +7,7 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="collapse navbar-collapse" id="navbarCollapse" data-toggle="collapse" data-target=".navbar-collapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item" :class="{'active':currentTab==='Home'}" @click="currentTab='Home'">
             <router-link class="nav-link" to="/index">Home</router-link>
