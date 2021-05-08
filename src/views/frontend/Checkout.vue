@@ -38,7 +38,8 @@
             <span class="text-right text-success">${{ cart.final_total }}</span>
           </li>
         </ul>
-
+        <h6 class="py-2" v-if="cart.total < 2000">Almost get promo code! Another <strong class="coupon-text">${{2000 - cart.total}}</strong></h6>
+        <h6 class="py-2" v-if="cart.total >= 2000">This is your promo code : AAA</h6>
         <form class="">
           <div class="input-group">
             <input type="text" class="form-control" v-model="coupon_code" placeholder="Promo code">
@@ -208,12 +209,8 @@ export default {
 }
 .progressbar {
   counter-reset: step;
-  padding: 0;
-  transform: translate(50px, 0px);
-  @media (max-width: 992px) {
-    transform: translate(20px, 0px);
-  }
 }
+// 數字跟文字
 .progressbar li {
   list-style: none;
   display: inline-block;
@@ -221,8 +218,9 @@ export default {
   position: relative;
   text-align: center;
   cursor: pointer;
-  color: #ABB2B9;
+  color: #ddd;
 }
+// 三個圓圈
 .progressbar li:before {
   content: counter(step);
   counter-increment: step;
@@ -232,30 +230,31 @@ export default {
   border: 1px solid #ddd;
   border-radius: 50%;
   display: block;
-  text-align: center;
   margin: 0 auto 10px auto;
   background-color: #fff;
-  position: relative;
 }
+// 背景斜線
 .progressbar li:after {
   content: "";
   position: absolute;
   width: 100%;
-  height: 2px;
+  height: 1px;
   background-color: #ddd;
   top: 15px;
   left: -50%;
   z-index : -1;
 }
+// info 前斜線
 .progressbar li:first-child:after {
   content: none;
 }
+// pay
 .progressbar li.active {
-  color: #3498DB;
-}
-.progressbar li.active:before {
-  border: 2px solid #3498DB;
-  line-height : 26px;
+  color: #808080;
+  &:before {
+    background-color: #ffff9a;
+    border: 1px solid #ddd;
+  }
 }
 .form-container{
   max-width: 80%;
@@ -286,5 +285,8 @@ export default {
 }
 .addCoupon {
   text-decoration: line-through
+}
+.coupon-text {
+  color: rgb(53, 197, 190);
 }
 </style>

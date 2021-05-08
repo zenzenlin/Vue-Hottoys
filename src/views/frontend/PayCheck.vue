@@ -4,8 +4,8 @@
     <div class="container py-5">
       <div class="progressbar-container">
         <ul class="progressbar">
-          <li class="active">INFO</li>
-          <li>CONFIRM</li>
+          <li class="finished">INFO</li>
+          <li class="active">CONFIRM</li>
           <li>PAY</li>
         </ul>
       </div>
@@ -67,9 +67,9 @@
             <div class="text-center" v-if="order.is_paid === false">
               <button class="btn btn-danger btn-lg">CONFIRM AND PAY</button>
             </div>
-            <div class="text-center" v-if="order.is_paid === true">
+            <!-- <div class="text-center" v-if="order.is_paid === true">
               <router-link class="btn btn-info" to="/list">Continue Shopping</router-link>
-            </div>
+            </div> -->
           </form>
         </div>
       </div>
@@ -133,12 +133,8 @@ export default {
 }
 .progressbar {
   counter-reset: step;
-  padding: 0;
-  transform: translate(50px, 0px);
-  @media (max-width: 992px) {
-    transform: translate(20px, 0px);
-  }
 }
+// 數字跟文字
 .progressbar li {
   list-style: none;
   display: inline-block;
@@ -146,53 +142,58 @@ export default {
   position: relative;
   text-align: center;
   cursor: pointer;
-  color: #ABB2B9;
+  color: #808080;
 }
+// 三個圓圈
 .progressbar li:before {
   content: counter(step);
   counter-increment: step;
   width: 30px;
   height: 30px;
   line-height : 28px;
-  border: 1px solid;
-  // color: #808080;
+  border: 1px solid #ddd;
   border-radius: 50%;
   display: block;
-  text-align: center;
   margin: 0 auto 10px auto;
-  background-color: #82E0AA;
+  background-color: #ffff9a;
 }
+// 背景斜線
 .progressbar li:after {
   content: "";
   position: absolute;
   width: 100%;
   height: 3px;
-  color: #808080;
-  background-color: #ddd;
+  background-color: #82E0AA;
   top: 15px;
   left: -50%;
   z-index : -1;
 }
+// info 前斜線
 .progressbar li:first-child:after {
   content: none;
 }
-.progressbar li.active {
-  color: #3498DB;
-}
-.progressbar li.active:before {
-  background-color: white;
-  border: 2px solid #3498DB;
-  line-height : 26px;
-}
-.progressbar li.finished + li:after {
-  background-color: #82E0AA;
-}
-.progressbar li:last-child:before {
-  border-color: #ddd;
-  background-color: white;
-}
+// info 完成出現打勾
 .progressbar li.finished:before {
-  color: #808080;
+  content: "";
+  background-color: #fff;
+  height: 30px;
+  background-size: cover;
+  background-image: url(../../assets/images/check.png);
+}
+// pay
+.progressbar li:last-child {
+  color: #ddd;
+  // pay 去掉背景
+  &:before {
+    color: #ddd;
+    border-color: #ddd;
+    background-color: white;
+  }
+  // pay 前斜線
+  &:after {
+    background-color: #ddd;
+    height: 1px;
+  }
 }
 .form-container{
   max-width: 80%;

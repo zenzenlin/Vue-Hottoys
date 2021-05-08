@@ -15,7 +15,7 @@
       <!-- next -->
       <li class="page-item" :class="{'disabled': !pages.has_next}">
         <a class="page-link" href="#" aria-label="Next"
-          @click.prevent="changePage(pages.current_page+1)">
+          @click.prevent="changePage(pages.current_page + 1)">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  props: ['pages'], // 透過page將外層資料傳進來
+  props: ['pages'], // 透過props將外層資料page傳進來
   data () {
     return {}
   },

@@ -46,13 +46,13 @@ const routes = [
         name: 'finishpayment',
         path: '/finishpayment',
         component: () => import('../views/frontend/FinishPayment.vue')
+      },
+      {
+        path: '/login',
+        name: 'Login',
+        component: () => import('../views/frontend/Login.vue')
       }
     ]
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/frontend/Login.vue')
   },
   {
     path: '/admin',

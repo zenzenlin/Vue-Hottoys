@@ -5,11 +5,15 @@
         <router-link to="/">
           <img class="mb-4" src="@/assets/images/hottoys_logo.png" alt="" width="72" height="72">
         </router-link>
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" v-model="user.username" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" v-model="user.password" class="form-control" placeholder="Password" required>
+        <h1 class="h3 my-4 text-info font-weight-normal">WELCOME BACK!</h1>
+        <div class="input-form">
+          <label for="inputEmail" class="sr-only">Email address</label>
+          <input type="email" id="inputEmail" v-model="user.username" class="form-control mb-3" placeholder="Email address" required autofocus>
+        </div>
+        <div class="input-form">
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" id="inputPassword" v-model="user.password" class="form-control mb-3" placeholder="Password" required>
+        </div>
         <div class="checkbox mb-3">
           <label>
             <input type="checkbox" value="remember-me"> Remember me
@@ -53,9 +57,9 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 .bg {
-  height: 100vh;
+  height: 70vh;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -67,9 +71,12 @@ export default {
 
 .form-signin {
   width: 100%;
-  max-width: 330px;
+  max-width: 430px;
   padding: 15px;
   margin: auto;
+  h1 {
+    letter-spacing: 3px;
+  }
 }
 .form-signin .checkbox {
   font-weight: 400;

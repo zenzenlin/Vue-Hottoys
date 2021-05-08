@@ -2,6 +2,7 @@
   <div>
     <loading :active.sync="isLoading"></loading>
     <Navbar class="sticky-top"></Navbar>
+    <Alert></Alert>
     <router-view></router-view>
     <Footer></Footer>
   </div>
@@ -10,11 +11,13 @@
 <script>
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import Alert from '@/components/AlertMessage'
 
 export default {
   components: {
     Navbar,
-    Footer
+    Footer,
+    Alert
   },
   computed: {
     isLoading () {

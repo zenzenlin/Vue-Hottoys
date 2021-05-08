@@ -1,139 +1,141 @@
 <template>
-  <div>
-    <main>
-      <div class="container">
-        <div class="banner-pic d-flex">
-        </div>
+  <div class="container-xl p-0">
+    <div >
+      <div class="banner-pic">
       </div>
-      <div class="container py-4">
-        <div class="row">
-          <div class="col-12 col-lg-2 mb-3">
-            <div class="sidebar">
-              <ul class="category-root">
-                <li>
-                  <div class="dropdown__header" @click="toggleDropdown($event)">
-                    <span>POPULAR</span>
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                    <i class="fa fa-angle-up" aria-hidden="true"></i>
-                  </div>
-                  <ul class="dropdown__content category-inner">
-                    <li @click.prevent="changeTab('classic')" :class="{'category-inner-active':prodCategory==='classic'}">
-                      <a href="#">classic</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <div class="dropdown__header" @click="toggleDropdown($event)">
-                    <span>New</span>
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                    <i class="fa fa-angle-up" aria-hidden="true"></i>
-                  </div>
-                  <ul class="dropdown__content category-inner">
-                    <li @click.prevent="changeTab('newin')" :class="{'category-inner-active':prodCategory==='newin'}">
-                      <a href="#">New arrival</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <div class="dropdown__header" @click="toggleDropdown($event)">
-                    <span>MARVEL</span>
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                    <i class="fa fa-angle-up" aria-hidden="true"></i>
-                  </div>
-                  <ul class="dropdown__content category-inner">
-                    <li @click.prevent="changeTab('ironman')" :class="{'category-inner-active':prodCategory==='ironman'}">
-                      <a href="#">Iron man</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <div class="dropdown__header" @click="toggleDropdown($event)">
-                    <span>DC</span>
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                    <i class="fa fa-angle-up" aria-hidden="true"></i>
-                  </div>
-                  <ul class="dropdown__content category-inner">
-                    <li @click.prevent="changeTab('batman')" :class="{'category-inner-active':prodCategory==='batman'}">
-                      <a href="#">Batman</a>
-                    </li>
-                    <li @click.prevent="changeTab('wonderwoman')" :class="{'category-inner-active':prodCategory==='wonderwoman'}">
-                      <a href="#">Wonderwoman</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <div class="dropdown__header category-inner">
-                    <li @click="changeTab('')">All Products</li>
-                  </div>
-                </li>
-              </ul>
-            </div>
+    </div>
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-12 col-lg-2 mb-3">
+          <div class="sidebar">
+            <ul class="category-root">
+              <li>
+                <div class="dropdown__header" @click="toggleDropdown($event)">
+                  <span>POPULAR</span>
+                  <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  <i class="fa fa-angle-up" aria-hidden="true"></i>
+                </div>
+                <ul class="dropdown__content category-inner">
+                  <li @click.prevent="changeTab('classic')" :class="{'category-inner-active':prodCategory==='classic'}">
+                    <a href="#">classic</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="dropdown__header" @click="toggleDropdown($event)">
+                  <span>New</span>
+                  <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  <i class="fa fa-angle-up" aria-hidden="true"></i>
+                </div>
+                <ul class="dropdown__content category-inner">
+                  <li @click.prevent="changeTab('newin')" :class="{'category-inner-active':prodCategory==='newin'}">
+                    <a href="#">New arrival</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="dropdown__header" @click="toggleDropdown($event)">
+                  <span>MARVEL</span>
+                  <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  <i class="fa fa-angle-up" aria-hidden="true"></i>
+                </div>
+                <ul class="dropdown__content category-inner">
+                  <li @click.prevent="changeTab('ironman')" :class="{'category-inner-active':prodCategory==='ironman'}">
+                    <a href="#">Iron man</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="dropdown__header" @click="toggleDropdown($event)">
+                  <span>DC</span>
+                  <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  <i class="fa fa-angle-up" aria-hidden="true"></i>
+                </div>
+                <ul class="dropdown__content category-inner">
+                  <li @click.prevent="changeTab('batman')" :class="{'category-inner-active':prodCategory==='batman'}">
+                    <a href="#">Batman</a>
+                  </li>
+                  <li @click.prevent="changeTab('wonderwoman')" :class="{'category-inner-active':prodCategory==='wonderwoman'}">
+                    <a href="#">Wonderwoman</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="dropdown__header category-inner">
+                  <li @click="changeTab('')">All Products</li>
+                </div>
+              </li>
+            </ul>
           </div>
-          <div class="col-12 col-lg-10">
-            <div class="sortbar align-items-center">
-              <div class="sortbar-select">
-                <div class="sortbar-font">
-                  <span>
-                    SORT BY
-                    <svg width="20"  height="36"  viewBox="0 0 48 48"  data-icon="caret-down"
-                      style="fill: rgb(151, 155, 167); stroke: rgb(151, 155, 167); stroke-width: 0; vertical-align: bottom;">
-                      <path d="M24.21 33.173l12.727-12.728c.78-.78.78-2.048 0-2.828-.78-.78-2.047-.78-2.828 0l-9.9 9.9-9.9-9.9c-.78-.78-2.047-.78-2.827 0-.78.78-.78 2.047 0 2.828L24.21 33.173z"/>
-                    </svg>
-                  </span>
-                  <div class="hidden">
-                    <a href="" :class="{'inner-btn':currentSort==='Highest'}" @click.prevent="sortTable('Highest')">
-                      <span class="">Price (Highest First)</span>
-                    </a>
-                    <a href="" :class="{'inner-btn':currentSort==='Lowest'}" @click.prevent="sortTable('Lowest')">
-                      <span class="">Price (Lowest First)</span>
-                    </a>
-                  </div>
+        </div>
+        <div class="col-12 col-lg-10">
+          <div class="sortbar align-items-center">
+            <div class="sortbar-select">
+              <div class="sortbar-font">
+                <span>
+                  SORT BY
+                  <svg width="20"  height="36"  viewBox="0 0 48 48"  data-icon="caret-down"
+                    style="fill: rgb(151, 155, 167); stroke: rgb(151, 155, 167); stroke-width: 0; vertical-align: bottom;">
+                    <path d="M24.21 33.173l12.727-12.728c.78-.78.78-2.048 0-2.828-.78-.78-2.047-.78-2.828 0l-9.9 9.9-9.9-9.9c-.78-.78-2.047-.78-2.827 0-.78.78-.78 2.047 0 2.828L24.21 33.173z"/>
+                  </svg>
+                </span>
+                <div class="hidden">
+                  <a href="" :class="{'inner-btn':currentSort==='Highest'}" @click.prevent="sortTable('Highest')">
+                    <span class="">Price (Highest First)</span>
+                  </a>
+                  <a href="" :class="{'inner-btn':currentSort==='Lowest'}" @click.prevent="sortTable('Lowest')">
+                    <span class="">Price (Lowest First)</span>
+                  </a>
                 </div>
               </div>
             </div>
-            <div class="row mt-4 py-3">
-              <div class="col-lg-4 col-md-6 mb-4" v-for="item in filterData" :key="item.id">
-                <div class="card border-1 shadow">
-                  <div class="mdSize" style="height: 200px; background-size: cover; background-position: center; background-repeat: no-repeat; cursor: pointer"
-                    :style="{backgroundImage: `url(${item.imageUrl})`}" @click="$router.push(`/product/${item.id}`)">
+          </div>
+          <div class="row mt-4 py-3">
+            <div class="col-lg-4 col-md-6 mb-4" v-for="item in filterPager" :key="item.id">
+              <div class="card border-1 shadow">
+                <div class="mdSize" style="height: 200px; background-size: cover; background-position: center; background-repeat: no-repeat; cursor: pointer"
+                  :style="{backgroundImage: `url(${item.imageUrl})`}" @click="$router.push(`/product/${item.id}`)">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title mb-5">
+                    <a href="#" class="text-dark" @click="$router.push(`/product/${item.id}`)">{{ item.title }} </a>
+                  </h5>
+                  <div class="d-flex justify-content-between align-items-baseline">
+                    <div class="h5" v-if="!item.price">{{ item.origin_price }}</div>
+                    <del class="h6" v-if="item.price">$ {{ item.origin_price }}</del>
+                    <div class="h5 text-danger" v-if="item.price">$ {{ item.price }}</div>
                   </div>
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a href="#" class="text-dark" @click="$router.push(`/product/${item.id}`)">{{ item.title }} </a>
-                    </h5>
-                    <div class="d-flex justify-content-between align-items-baseline">
-                      <div class="h5" v-if="!item.price">{{ item.origin_price }}</div>
-                      <del class="h6" v-if="item.price">$ {{ item.origin_price }}</del>
-                      <div class="h5 text-danger" v-if="item.price">$ {{ item.price }}</div>
-                    </div>
-                    <div class="d-flex mt-2">
-                      <span class="badge badge-info mr-1">{{ item.category2 }}</span>
-                      <span class="badge badge-info mr-auto">{{ item.category }}</span>
-                      <i class="far fa-heart cursor" style="cursor: pointer"></i>
-                    </div>
+                  <div class="d-flex mt-2">
+                    <span class="badge badge-info mr-1">{{ item.category2 }}</span>
+                    <span class="badge badge-info mr-auto">{{ item.category }}</span>
+                    <i class="far fa-heart cursor" style="cursor: pointer"></i>
                   </div>
-                  <div class="card-footer d-flex">
-                    <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.push(`/product/${item.id}`)">
-                      DETAIL
-                    </button>
-                    <button type="button" class="btn btn-outline-danger btn-sm ml-auto" @click="addToCart(item.id, qty)">
-                      BUY IT NOW
-                    </button>
-                  </div>
+                </div>
+                <div class="card-footer d-flex">
+                  <button type="button" class="btn btn-outline-secondary btn-sm" @click="$router.push(`/product/${item.id}`)">
+                    DETAIL
+                  </button>
+                  <button type="button" class="btn btn-outline-danger btn-sm ml-auto" @click="addToCart(item.id, qty)">
+                    BUY IT NOW
+                  </button>
                 </div>
               </div>
             </div>
-            <pagination class="d-flex justify-content-center" :pages="pagination" @emitPages="getProducts"></pagination>
           </div>
+          <pagination class="d-flex justify-content-center" :pages="pagination" @emitPages="getPages"></pagination>
         </div>
       </div>
-    </main>
+      <button class="back-to-top" type="button" v-if="isVisible" @click="backToTop">
+        <i class="fa fa-angle-up" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import pagination from '@/components/pagination'
 import { mapGetters } from 'vuex'
+import $ from 'jquery'
 
 export default {
   name: 'list',
@@ -141,7 +143,18 @@ export default {
     pagination
   },
   data () {
-    return {}
+    return {
+      isVisible: false,
+      scrollTop: '',
+      products: [],
+      pagination: {
+        page_Size: 6,
+        total_pages: '',
+        current_page: '1',
+        has_pre: false,
+        has_next: true
+      }
+    }
   },
   methods: {
     toggleDropdown (event) {
@@ -162,36 +175,73 @@ export default {
       })
       return newSort
     },
-    getProducts (page = 1) {
-      this.$store.dispatch('getProducts', page)
+    backToTop () {
+      $('html,body').stop().animate({
+        scrollTop: 0
+      }, 'slow', 'swing')
+    },
+    getProducts () {
+      const vm = this
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
+      this.$store.dispatch('updateLoading', true)
+      this.$http.get(api).then(response => {
+        console.log('getProducts', response.data)
+        vm.products = response.data.products
+        this.$store.dispatch('updateLoading', false)
+      })
+    },
+    getPages (page = 1) {
+      this.pagination.current_page = page
     },
     addToCart (id, qty) {
       this.$store.dispatch('addToCart', { id, qty })
     },
     changeTab (prodCategory) {
       this.$store.dispatch('changeTab', prodCategory)
+      this.pagination.current_page = 1
     }
   },
   computed: {
     filterData () {
       const vm = this
-      // if (vm.searchFilter || vm.searchResult.length) {
-      //   return vm.searchResult
-      // } else {
-      // console.log(this.product)
-      return vm.products.filter((item) => {
-        if (vm.prodCategory === '') {
-          return item
-        } else {
+      if (vm.prodCategory === '') {
+        return vm.products
+      } else {
+        return vm.products.filter((item) => {
           return vm.prodCategory === '' ? item : item.category === vm.prodCategory || item.category2 === vm.prodCategory
-        }
-      })
-      // }
+        })
+      }
     },
-    ...mapGetters(['pagination', 'products', 'qty', 'prodCategory', 'currentSort'])
+    filterPager () {
+      const vm = this
+      const dataSize = vm.filterData.length// 12
+      const pageSize = vm.pagination.page_Size// 6
+      vm.pagination.total_pages = Math.ceil(dataSize / pageSize)// 2
+      const nowPage = vm.pagination.current_page
+      // 上一頁與下一頁邏輯
+      nowPage > 1 ? vm.pagination.has_pre = true : vm.pagination.has_pre = false
+      nowPage < vm.pagination.total_pages && (vm.pagination.has_next = true);
+      (nowPage + 1) > vm.pagination.total_pages && (vm.pagination.has_next = false)
+      return vm.filterData.filter((item, index) => {
+      // 資料區間
+        return index < (nowPage * pageSize) && index >= (nowPage - 1) * pageSize
+      })
+    },
+    ...mapGetters(['qty', 'prodCategory', 'currentSort'])
+  },
+  mounted () {
+    window.addEventListener('scroll', () => {
+      const top = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset
+      this.scrollTop = top
+      if (top >= 100) {
+        this.isVisible = true
+      } else {
+        this.isVisible = false
+      }
+    })
   },
   created () {
-    this.$store.dispatch('getProducts')
+    this.getProducts()
   }
 }
 </script>
@@ -298,13 +348,13 @@ export default {
       z-index: 20;
       opacity: 0;
       background: white;
-      min-width: 160px;
+      min-width: auto;
       position: absolute;
-      top: 36px;
+      right: 0;
       a{
         color: #26282a;
         text-decoration: none;
-        padding: 0 8px;
+        padding: 4px 10px;
         &:hover{
           background: #f1f1f5;
         }
@@ -373,10 +423,23 @@ export default {
   height: 40px;
   margin-bottom: 10px;
 }
+.back-to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 82px;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  background: #fff;
+  padding: 0 14px;
+  z-index: 2;
+  border: 1px solid #000;
+  opacity: .5;
+}
 @media screen and (min-width:768px) and (max-width:992px){
-  .card-title{
-    height: 60px;
-  }
+  // .card-title{
+  //   height: 160px;
+  // }
   .mdSize{
     height: 180px !important;
   }
@@ -389,4 +452,6 @@ export default {
     background-repeat: no-repeat;
   }
 }
+// @media (max-width:768px){
+// }
 </style>

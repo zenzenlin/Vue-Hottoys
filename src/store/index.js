@@ -11,7 +11,7 @@ export default new Vuex.Store({
     product: {},
     products: [],
     prodCategory: '',
-    pagination: {},
+    // pagination: {},
     qty: 1,
     currentSort: ''
   },
@@ -34,22 +34,46 @@ export default new Vuex.Store({
       axios.get(api).then(response => {
         console.log('getProducts', response.data)
         context.commit('PRODUCTS', response.data.products)
-        context.commit('PAGINATION', response.data.pagination)
+        // context.commit('PAGINATION', response.data.pagination)
         context.commit('LOADING', false)
       })
     },
-    addToCart (context, { id, qty }) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+    addToCart (context, { id, qty = 1 }) {
+      const target = context.state.cart.carts.filter(items => items.product_id === id)
       context.commit('LOADING', true)
-      const cart = {
-        product_id: id,
-        qty
+      if (target.length > 0) {
+        const sameCartItem = target[0]
+        const originQty = sameCartItem.qty
+        const originCartId = sameCartItem.id
+        const originProductId = sameCartItem.product.id
+        const newQty = originQty + qty
+        context.dispatch('updateProductQty', { originCartId, originProductId, newQty })
+      } else {
+        const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+        const cart = {
+          product_id: id,
+          qty
+        }
+        axios.post(api, { data: cart }).then(response => {
+          console.log('addToCart', response.data)
+          context.dispatch('getCart')
+          context.commit('LOADING', false)
+        })
       }
-      axios.post(api, { data: cart }).then(response => {
-        console.log('addToCart', response.data)
-        context.dispatch('getCart')
-        context.commit('LOADING', false)
-      })
+    },
+    updateProductQty (context, { originCartId, originProductId, newQty }) {
+      const delAPI = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${originCartId}`
+      const addAPI = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      context.commit('LOADING', true)
+      const changeCart = {
+        product_id: originProductId,
+        qty: newQty
+      }
+      axios.all([axios.delete(delAPI), axios.post(addAPI, { data: changeCart })])
+        .then(axios.spread(() => {
+          context.dispatch('getCart')
+          context.commit('LOADING', false)
+        }))
     },
     getCart (context) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
@@ -86,9 +110,9 @@ export default new Vuex.Store({
     CART (state, payload) {
       state.cart = payload
     },
-    PAGINATION (state, payload) {
-      state.pagination = payload
-    },
+    // PAGINATION (state, payload) {
+    //   state.pagination = payload
+    // },
     PRODCATEGORY (state, payload) {
       state.prodCategory = payload
     }
@@ -103,9 +127,9 @@ export default new Vuex.Store({
     qty (state) {
       return state.qty
     },
-    pagination (state) {
-      return state.pagination
-    },
+    // pagination (state) {
+    //   return state.pagination
+    // },
     currentSort (state) {
       return state.currentSort
     }

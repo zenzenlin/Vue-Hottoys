@@ -163,6 +163,7 @@ hr {
 }
 .dropdown__header {
   font-weight: 600;
+  cursor: pointer;
   position: relative;
   i.fa {
     position: absolute;
