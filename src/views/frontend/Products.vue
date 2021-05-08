@@ -187,6 +187,7 @@ export default {
       this.$http.get(api).then(response => {
         console.log('getProducts', response.data)
         vm.products = response.data.products
+        vm.pagination.current_page = 1
         this.$store.dispatch('updateLoading', false)
       })
     },
@@ -214,16 +215,17 @@ export default {
     },
     filterPager () {
       const vm = this
-      const dataSize = vm.filterData.length// 12
-      const pageSize = vm.pagination.page_Size// 6
-      vm.pagination.total_pages = Math.ceil(dataSize / pageSize)// 2
+      const dataSize = vm.filterData.length
+      const pageSize = vm.pagination.page_Size
       const nowPage = vm.pagination.current_page
+      vm.pagination.total_pages = Math.ceil(dataSize / pageSize)
       // 上一頁與下一頁邏輯
       nowPage > 1 ? vm.pagination.has_pre = true : vm.pagination.has_pre = false
       nowPage < vm.pagination.total_pages && (vm.pagination.has_next = true);
       (nowPage + 1) > vm.pagination.total_pages && (vm.pagination.has_next = false)
       return vm.filterData.filter((item, index) => {
-      // 資料區間
+        console.log(index < (nowPage * pageSize))
+        // 資料區間 只有在兩邊都是True 時才會回傳 True
         return index < (nowPage * pageSize) && index >= (nowPage - 1) * pageSize
       })
     },
