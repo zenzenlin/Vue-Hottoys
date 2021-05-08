@@ -20,7 +20,7 @@
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" @click.prevent="signin" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
+        <p class="my-5 mb-3 text-muted">&copy; 2017-2021</p>
       </form>
     </main>
   </div>
@@ -59,13 +59,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .bg {
-  height: 70vh;
+  height: 100vh;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
   align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
   background-color: #f5f5f5;
 }
 

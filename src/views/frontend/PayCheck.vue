@@ -16,7 +16,7 @@
               <tbody>
                 <tr v-for="item in order.products" :key="item.id">
                   <td>
-                    <div class="" style="width: 150px; height: 110px; background-size: cover; background-position: center; background-repeat: no-repeat;"
+                    <div class="" style="min-width: 100px; height: 110px; background-size: cover; background-position: center; background-repeat: no-repeat;"
                     :style="{backgroundImage: `url(${item.product.imageUrl})`}"></div>
                   </td>
                   <td class="align-middle h4">{{ item.product.title }}
