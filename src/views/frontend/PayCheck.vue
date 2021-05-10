@@ -11,28 +11,24 @@
       </div>
       <div class="mt-5">
         <div class="cart-frame">
-          <form class="col-md" @submit.prevent="payOrder">
-            <table class="table">
-              <tbody>
-                <tr v-for="item in order.products" :key="item.id">
-                  <td>
-                    <div class="" style="min-width: 100px; height: 110px; background-size: cover; background-position: center; background-repeat: no-repeat;"
-                    :style="{backgroundImage: `url(${item.product.imageUrl})`}"></div>
-                  </td>
-                  <td class="align-middle h4">{{ item.product.title }}
-                  </td>
-                  <td class="align-middle">{{ item.qty }} {{ item.product.unit }}</td>
-                  <td class="align-middle text-right">{{ item.final_total }}</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="3" class="text-right h5">TOTAL</td>
-                  <td class="text-right h5">{{ order.total }}</td>
-                </tr>
-              </tfoot>
-            </table>
-
+          <form class="col" @submit.prevent="payOrder">
+            <div class="row" v-for="item in order.products" :key="item.id">
+              <div class="col-md-5 p-3">
+                <div style="height: 250px; background-size: cover; background-position: center; background-repeat: no-repeat;"
+                  :style="{backgroundImage: `url(${item.product.imageUrl})`}">
+                </div>
+              </div>
+              <div class="col-md-7 text-center d-flex flex-column justify-content-center">
+                <span class="h4 py-2">{{ item.product.title }}</span>
+                <span class="text-muted">{{ item.qty }} {{ item.product.unit }}</span>
+                <span class="text-muted py-2">$ {{ item.final_total }}</span>
+              </div>
+            </div>
+            <hr>
+            <div class="text-right p-3">
+              <span class="h5">TOTAL</span>
+              <span class="ml-5 h3 text-danger">$ {{ order.total }}</span>
+            </div>
             <table class="table">
               <tbody>
                 <tr>
