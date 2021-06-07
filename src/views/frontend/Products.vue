@@ -81,10 +81,10 @@
                 </span>
                 <div class="hidden">
                   <a href="" :class="{'inner-btn':currentSort==='Highest'}" @click.prevent="sortTable('Highest')">
-                    <span class="">Price (Highest First)</span>
+                    <span>Price (Highest First)</span>
                   </a>
                   <a href="" :class="{'inner-btn':currentSort==='Lowest'}" @click.prevent="sortTable('Lowest')">
-                    <span class="">Price (Lowest First)</span>
+                    <span>Price (Lowest First)</span>
                   </a>
                 </div>
               </div>
@@ -162,9 +162,10 @@ export default {
       event.currentTarget.classList.toggle('is-active')
     },
     sortTable (currentSort) {
-      let newSort = []
+      // let newSort = []
+      const vm = this
       const newProducts = this.$store.state.products
-      newSort = newProducts.sort((a, b) => {
+      vm.products = newProducts.sort((a, b) => {
         const aPrice = a.price ? a.price : a.origin_price
         const bPrice = b.price ? b.price : b.origin_price
         if (currentSort === 'Highest') {
@@ -173,7 +174,7 @@ export default {
           return aPrice - bPrice
         }
       })
-      return newSort
+      return vm.products
     },
     backToTop () {
       $('html,body').stop().animate({

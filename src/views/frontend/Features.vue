@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <section class="d-md-flex flex-row-reverse justify-content-between">
       <div class="content-img mt-5">
-        <img class="mt-5" src="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.18169-9/11152682_10152749042512344_241794126113912863_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=8bfeb9&_nc_ohc=OyGu0Pp6D6gAX-WV0R3&_nc_ht=scontent.ftpe8-3.fna&oh=9b2fd9fd3063fc6f4e0dd2dfb394fd88&oe=60B1643F" style="width:100%" alt="">
+        <img class="mt-5" src="../../assets/images/CEO.jpg" style="width:100%" alt="">
       </div>
       <div class="content">
         <h2>IT ALL STARTED</h2>
